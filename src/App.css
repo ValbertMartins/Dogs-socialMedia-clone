@@ -5,10 +5,17 @@
     font-family:  Helvetica , Arial , sans-serif;
 }
 
+
 .container { 
     max-width: 800px;
     margin: 0 auto;
     padding: 1.3rem;
+    
+}
+
+.feed {
+    min-height: 1000px;
+    
 }
 
 a { 

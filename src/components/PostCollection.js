@@ -4,9 +4,9 @@ import { Link } from "react-router-dom"
 
 
 
-const PostCollection = ({collectionPosts,index}) => {
+const PostCollection = ({collectionPosts}) => {
     return(
-        <section className={`${styles.feed} animationLeft`} key={index}>
+        <section className={`${styles.postsContainer} animationLeft`} >
            {
             collectionPosts.map((post) => {
               return (
