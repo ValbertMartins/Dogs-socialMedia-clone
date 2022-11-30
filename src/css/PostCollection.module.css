@@ -1,0 +1,19 @@
+.feed {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 0.25rem 0.5rem ;
+}
+
+
+.post:nth-child(2){
+    grid-column-start: 2;
+    grid-column-end: 4;
+    grid-row: span 2;
+
+}
+
+
+.post img {
+    width: 100%;
+    border-radius: 5px;
+}
