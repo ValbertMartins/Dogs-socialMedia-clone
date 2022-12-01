@@ -1,8 +1,10 @@
 .postsContainer {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    grid-gap: 0.25rem 0.5rem ;
-    margin: 0.5rem 0;
+    grid-gap: 0.4rem 0.8rem ;
+    margin: 0.5rem;
+    
+    
 }
 
 

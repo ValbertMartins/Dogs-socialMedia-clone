@@ -1,39 +1,66 @@
 import React from 'react'
-import {useFetch} from '../hooks/useFetch'
 import PostCollection from './PostCollection'
+
+
+
+
+
 const Feed = () => {
 
     const [ feed, setFeed ] = React.useState([])
-    const [ currentPage, setCurrentPage] = React.useState(1)
+    const [ currentPage, setCurrentPage ] = React.useState(1)
+    const [ alreadyExistsPage, setAlreadyExistsPage ] = React.useState(true)
+    const [ contentEnd , setContentEnd ] = React.useState(false)
 
 
     React.useEffect(() => {
-      fetch(`https://dogsapi.origamid.dev/json/api/photo/?_total=6&_page=${currentPage}&user=0`)
-        .then( response => response.json())
-          .then( json => { 
-            setFeed( oldFeed => [...oldFeed, json ] )
-          })
 
+      ( async () => {
+        const response = await fetch(`https://dogsapi.origamid.dev/json/api/photo/?_total=6&_page=${currentPage}&user=0`)
+        const json = await response.json()   
+        
+        if( json.length > 0){
+          setFeed( oldFeed => [...oldFeed, json ])
+        } else { 
+          setContentEnd(true)
+          setAlreadyExistsPage(false)
+        }
+        
+           
+      })();
+      
+  
     }, [currentPage])
  
-    console.log(currentPage, feed)
+   
     
     
     React.useEffect(() => {
       const observer = new IntersectionObserver((entries) => {
-        console.log('bar')
+        
         entries.forEach(entry => {
-
+          
           if(entry.isIntersecting){
-            console.log('foo')
-            setCurrentPage( oldValue => oldValue + 1)
+            
+            // if(alreadyExistsPage){
+            //   setCurrentPage( oldValue => oldValue + 1)
+            // } else {
+            //   observer.unobserve(document.querySelector("#footer"))
+      
+            // }
 
+            alreadyExistsPage ? 
+              setCurrentPage( oldValue => oldValue + 1) : 
+                observer.unobserve(document.querySelector("#footer"))
           }
+
+          
 
         })
 
       }, {
-        threshold: 1
+        root:null,
+        threshold: 0.8
         
       })
       
@@ -41,23 +68,27 @@ const Feed = () => {
 
       return () => observer.unobserve(document.querySelector("#footer"))
       
-    }, [])
+    }, [alreadyExistsPage])
 
     
-
-
+   
     
-
+    
+   
   return (
 
     <section className={`container feed`}>
        
        {feed.map( (collectionPosts,index) => {
-          return (
-            <PostCollection collectionPosts={collectionPosts} key={index}/>
+        
+          return ( 
+              <PostCollection collectionPosts={collectionPosts} key={index}/>   
             )
           }
         )}
+
+
+        {contentEnd && <p className="contentEnd">Não existem mais postagens</p>}
     </section>
 
   )

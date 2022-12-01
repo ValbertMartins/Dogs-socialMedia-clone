@@ -13,8 +13,13 @@
     
 }
 
+
+
 .feed {
-    min-height: 1000px;
+    min-height: 100vh;
+    
+    
+
     
 }
 
@@ -30,6 +35,13 @@ a {
     animation: animationDefault 0.3s ease forwards;
 } 
 
+
+
+.contentEnd {
+    text-align: center;
+    color: rgb(136, 136, 136);
+    margin: 1rem;
+}
 
 @keyframes animationDefault {
     to { 

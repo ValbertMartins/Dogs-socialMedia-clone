@@ -14,6 +14,7 @@ function App() {
         <Feed/>
         <Footer/>
       </BrowserRouter>
+      
     </main>
   )
 }

@@ -5,8 +5,14 @@ import { Link } from "react-router-dom"
 
 
 const PostCollection = ({collectionPosts}) => {
+
+
+    
+
+    
     return(
         <section className={`${styles.postsContainer} animationLeft`} >
+
            {
             collectionPosts.map((post) => {
               return (
@@ -16,6 +22,7 @@ const PostCollection = ({collectionPosts}) => {
               )
             })
           }
+           
         </section>
       )
 }
