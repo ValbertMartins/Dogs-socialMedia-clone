@@ -46,6 +46,52 @@ a {
 }
 
 
+.inputLabel {
+    display: block;
+    font-size: 1.2rem;
+    margin: 0.6rem 0;
+}
+
+.inputForm {
+    outline: none;
+    border: 1px solid #eee;
+    padding: 0.8rem;
+    width: 100%;
+    transition: 0.3s;
+    background-color: #eee;
+    border-radius: 5px;
+   
+}
+
+
+.inputForm:hover {
+    box-shadow: 0 0 0 3px #fea;
+    background-color: #fff;
+
+}
+
+.defaultBtn {
+    background-color: #fb1;
+    outline: none;
+    border: none;
+    padding: 0.4rem 0.7rem;
+    border-radius: 5px;
+    min-width: 8rem;
+    min-height: 40px;
+    color: rgba(0, 0, 0 , 0.7);
+    transition: 0.3s;
+    font-size: 1rem;
+    cursor: pointer;
+    margin: 1rem 0;
+}
+
+.defaultBtn:hover{ 
+    
+    box-shadow: 0 0 0 3px #fea;
+ }
+
+
+
 
 @keyframes animationDefault {
     to { 

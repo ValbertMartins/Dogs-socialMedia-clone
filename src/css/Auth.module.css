@@ -1,7 +1,6 @@
 
 
 
-
 .loginSection { 
     min-height: 100vh;
     display: grid;
@@ -18,6 +17,10 @@
 .formContainer { 
   padding: 5%;
   max-width: 500px;
+  font-family: Arial, Helvetica, sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   
  
     
@@ -46,45 +49,32 @@
    
 } 
 
-.inputLabel {
-    display: block;
-    font-size: 1.2rem;
-    margin: 0.6rem 0;
-}
-
-.inputForm {
-    outline: none;
-    border: 1px solid #eee;
-    padding: 0.8rem;
-    width: 100%;
-    transition: 0.3s;
-    background-color: #eee;
-    border-radius: 5px;
-}
-
-
-.inputForm:hover {
-    box-shadow: 0 0 0 3px #fea;
-    background-color: #fff;
-
-}
-
-
-.defaultBtn {
-    background-color: #fb1;
-    outline: none;
-    border: none;
-    padding: 0.4rem 0.7rem;
-    border-radius: 5px;
-    min-width: 8rem;
-    min-height: 40px;
-    color: rgba(0, 0, 0 , 0.7);
-    transition: 0.3s;
-    font-size: 1rem;
-    cursor: pointer;
-}
-
-.defaultBtn:hover{ 
+.subtitle {
+    font-size: 2rem;
+    margin: 2rem 0;
     
-    box-shadow: 0 0 0 3px #fea;
+   
+}
+
+.subtitle::after {
+    content: "";
+    display: block;
+    height: 10px;
+    border-radius: 2px;
+    background-color: #DDD;
+    max-width: 4rem;
+}
+
+
+
+
+
+
+ .passwordLostLink {
+    color: #999;
+    border-bottom: 2px solid #999;
+    display: inline-block;
+    margin: 1.5rem 0;
+   
  }
+
