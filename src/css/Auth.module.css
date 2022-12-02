@@ -1,0 +1,90 @@
+
+
+
+
+.loginSection { 
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+
+.outdoorContainer {
+    background: url('https://dogs.origamid.dev/static/media/login.824d7d85.jpg') center center no-repeat ;
+    background-size: cover;
+}
+
+
+.formContainer { 
+  padding: 5%;
+  max-width: 500px;
+  
+ 
+    
+}
+
+
+.title { 
+    font-size: 3rem;
+    font-family: "spectral";
+    position: relative;
+    line-height: 3rem;
+    
+}
+
+.title::before {
+    content: "";
+    background-color: #fb1;
+    width: 1.3rem;
+    height: 1.4rem;
+    border-radius: 3px;
+    display: inline-block;
+    position: absolute;
+    z-index: -1;
+    bottom: 0;
+  
+   
+} 
+
+.inputLabel {
+    display: block;
+    font-size: 1.2rem;
+    margin: 0.6rem 0;
+}
+
+.inputForm {
+    outline: none;
+    border: 1px solid #eee;
+    padding: 0.8rem;
+    width: 100%;
+    transition: 0.3s;
+    background-color: #eee;
+    border-radius: 5px;
+}
+
+
+.inputForm:hover {
+    box-shadow: 0 0 0 3px #fea;
+    background-color: #fff;
+
+}
+
+
+.defaultBtn {
+    background-color: #fb1;
+    outline: none;
+    border: none;
+    padding: 0.4rem 0.7rem;
+    border-radius: 5px;
+    min-width: 8rem;
+    min-height: 40px;
+    color: rgba(0, 0, 0 , 0.7);
+    transition: 0.3s;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.defaultBtn:hover{ 
+    
+    box-shadow: 0 0 0 3px #fea;
+ }

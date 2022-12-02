@@ -1,6 +1,5 @@
 import React from 'react'
 import PostCollection from './feed/PostCollection'
-import Bone from "./svg/Bone"
 
 const Feed = () => {
    
@@ -10,7 +9,7 @@ const Feed = () => {
     const [ nextPageExists, setnextPageExists ] = React.useState(true)
    
   
-
+    
     React.useEffect(() => {
 
       ( async () => {
@@ -19,7 +18,7 @@ const Feed = () => {
 
           const response = await fetch(`https://dogsapi.origamid.dev/json/api/photo/?_total=6&_page=${currentPage}&user=0`)
           const json = await response.json()
-         
+      
           
           json.length == 0 ? setnextPageExists(false) : setFeed( oldFeed => [...oldFeed, json ]) 
          
@@ -36,7 +35,7 @@ const Feed = () => {
     }, [currentPage])
  
 
-    console.log(nextPageExists)
+    
    
   
     React.useEffect(() => {

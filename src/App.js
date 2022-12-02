@@ -4,7 +4,7 @@ import "./App.css"
 import { BrowserRouter, Routes, Route} from "react-router-dom"
 import Feed from "./components/Feed";
 import Footer from "./components/Footer"
-import Login from "./components/form/Login"
+import Login from "./components/auth/Login"
 import { GlobalStateStore } from "./context/GlobalState";
 
 function App() {
