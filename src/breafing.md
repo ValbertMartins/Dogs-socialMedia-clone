@@ -2,7 +2,7 @@
 
 [x] header
 [] feed page
-[] footer
+[x] footer
 
 
 ### login-auth-system

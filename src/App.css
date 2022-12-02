@@ -17,10 +17,7 @@
 
 .feed {
     min-height: 100vh;
-    
-    
-
-    
+      
 }
 
 a { 
@@ -35,7 +32,9 @@ a {
     animation: animationDefault 0.3s ease forwards;
 } 
 
-
+.animationLoading {
+    animation: animationLoading 0.8s ease forwards infinite;
+}
 
 .contentEnd {
     text-align: center;
@@ -43,9 +42,19 @@ a {
     margin: 1rem;
 }
 
+
+
 @keyframes animationDefault {
     to { 
         opacity: 1;
         transform: translateX(0px);
+    }
+}
+
+
+@keyframes animationLoading {
+    to { 
+        
+        transform: rotate(360deg);
     }
 }

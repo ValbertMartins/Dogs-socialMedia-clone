@@ -1,4 +1,21 @@
 footer {
     background: #fb1;
     height: 10rem;
+    display: flex;
+    align-items: center;
+}
+
+
+.footerContent { 
+    max-width: 20rem;
+    margin: 0 auto;
+    text-align: center;
+    color: rgb(136, 136, 136);
+    fill:rgb(136, 136, 136);
+}
+
+
+.footerContent p {
+    margin: 1rem 0;
+    
 }

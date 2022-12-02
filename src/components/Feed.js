@@ -1,40 +1,44 @@
 import React from 'react'
-import PostCollection from './PostCollection'
-
-
-
-
+import PostCollection from './feed/PostCollection'
+import Bone from "./svg/Bone"
 
 const Feed = () => {
+   
 
     const [ feed, setFeed ] = React.useState([])
     const [ currentPage, setCurrentPage ] = React.useState(1)
-    const [ alreadyExistsPage, setAlreadyExistsPage ] = React.useState(true)
-    const [ contentEnd , setContentEnd ] = React.useState(false)
-
+    const [ nextPageExists, setnextPageExists ] = React.useState(true)
+   
+  
 
     React.useEffect(() => {
 
       ( async () => {
-        const response = await fetch(`https://dogsapi.origamid.dev/json/api/photo/?_total=6&_page=${currentPage}&user=0`)
-        const json = await response.json()   
-        
-        if( json.length > 0){
-          setFeed( oldFeed => [...oldFeed, json ])
-        } else { 
-          setContentEnd(true)
-          setAlreadyExistsPage(false)
+
+        try {
+
+          const response = await fetch(`https://dogsapi.origamid.dev/json/api/photo/?_total=6&_page=${currentPage}&user=0`)
+          const json = await response.json()
+         
+          
+          json.length == 0 ? setnextPageExists(false) : setFeed( oldFeed => [...oldFeed, json ]) 
+         
+          if(json.length < 6) {
+            setnextPageExists(false)
+            
+          }
+        }catch(erro){
+
         }
-        
            
-      })();
-      
-  
+      })()
+
     }, [currentPage])
  
+
+    console.log(nextPageExists)
    
-    
-    
+  
     React.useEffect(() => {
       const observer = new IntersectionObserver((entries) => {
         
@@ -42,33 +46,29 @@ const Feed = () => {
           
           if(entry.isIntersecting){
             
-            // if(alreadyExistsPage){
+            console.log('foo')
+            nextPageExists ? 
+              setCurrentPage( oldValue => oldValue + 1) : 
+                observer.unobserve(document.querySelector("footer"))
+
+            // if(nextPageExists){
             //   setCurrentPage( oldValue => oldValue + 1)
             // } else {
             //   observer.unobserve(document.querySelector("#footer"))
       
             // }
-
-            alreadyExistsPage ? 
-              setCurrentPage( oldValue => oldValue + 1) : 
-                observer.unobserve(document.querySelector("#footer"))
           }
-
-          
-
         })
 
       }, {
         root:null,
-        threshold: 0.8
-        
+        threshold: 0.8 
       })
-      
-      observer.observe(document.querySelector("#footer"))
 
-      return () => observer.unobserve(document.querySelector("#footer"))
-      
-    }, [alreadyExistsPage])
+      observer.observe(document.querySelector("footer"))
+      return () => observer.unobserve(document.querySelector("footer"))
+
+    }, [nextPageExists])
 
     
    
@@ -80,15 +80,11 @@ const Feed = () => {
     <section className={`container feed`}>
        
        {feed.map( (collectionPosts,index) => {
-        
-          return ( 
-              <PostCollection collectionPosts={collectionPosts} key={index}/>   
-            )
-          }
-        )}
+              return <PostCollection collectionPosts={collectionPosts} key={index}/>    
+            })}
 
+          {!nextPageExists && <p className="contentEnd animationLeft">Não existem mais postagens</p>}
 
-        {contentEnd && <p className="contentEnd">Não existem mais postagens</p>}
     </section>
 
   )

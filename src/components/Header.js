@@ -6,10 +6,10 @@ const Header = () => {
   return (
     <header>
         <section className={`${styles.content} container`}>
-                <Link>
-                   <DogLogo/>
+                <Link to="/">
+                   <DogLogo fill="#333"/>
                 </Link>
-                <Link>
+                <Link to="login">
                     <p className={styles.profile}>Login / Criar</p>
                 </Link>
         </section>
