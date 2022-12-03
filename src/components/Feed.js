@@ -1,31 +1,36 @@
 import React from 'react'
+import useFetch from "../hooks/useFetch"
 import PostCollection from './feed/PostCollection'
 
 const Feed = () => {
    
 
+
     const [ feed, setFeed ] = React.useState([])
     const [ currentPage, setCurrentPage ] = React.useState(1)
     const [ nextPageExists, setnextPageExists ] = React.useState(true)
-   
   
     
+    
     React.useEffect(() => {
-
+         
       ( async () => {
+
 
         try {
 
           const response = await fetch(`https://dogsapi.origamid.dev/json/api/photo/?_total=6&_page=${currentPage}&user=0`)
           const json = await response.json()
-      
           
-          json.length == 0 ? setnextPageExists(false) : setFeed( oldFeed => [...oldFeed, json ]) 
-         
-          if(json.length < 6) {
-            setnextPageExists(false)
-            
+            json.length == 0 ? setnextPageExists(false) : setFeed( oldFeed => [...oldFeed, json ]) 
+           
+            if(json.length < 6) {
+              setnextPageExists(false)
+              
+          
+
           }
+
         }catch(erro){
 
         }
@@ -45,7 +50,7 @@ const Feed = () => {
           
           if(entry.isIntersecting){
             
-            console.log('foo')
+            
             nextPageExists ? 
               setCurrentPage( oldValue => oldValue + 1) : 
                 observer.unobserve(document.querySelector("footer"))
@@ -70,10 +75,8 @@ const Feed = () => {
     }, [nextPageExists])
 
     
-   
-    
-    
-   
+ 
+  
   return (
 
     <section className={`container feed`}>
@@ -82,7 +85,7 @@ const Feed = () => {
               return <PostCollection collectionPosts={collectionPosts} key={index}/>    
             })}
 
-          {!nextPageExists && <p className="contentEnd animationLeft">Não existem mais postagens</p>}
+       {!nextPageExists && <p className="contentEnd animationLeft">Não existem mais postagens</p>}
 
     </section>
 

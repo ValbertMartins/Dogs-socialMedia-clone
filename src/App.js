@@ -7,6 +7,7 @@ import Footer from "./components/Footer"
 import Login from "./components/auth/Login"
 import { GlobalStateStore } from "./context/GlobalState";
 import Register from "./components/auth/Register";
+import Teste from "./Teste"
 
 function App() {
  
