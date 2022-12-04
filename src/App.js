@@ -7,7 +7,8 @@ import Footer from "./components/Footer"
 import Login from "./components/auth/Login"
 import { GlobalStateStore } from "./context/GlobalState";
 import Register from "./components/auth/Register";
-import Teste from "./Teste"
+import Profile from "./components/profile/Profile";
+
 
 function App() {
  
@@ -20,6 +21,7 @@ function App() {
             <Route path="/" element={<Feed/>}/>
             <Route path="login/" element={<Login/>}/>
             <Route path="login/register" element={<Register/>}/>
+            <Route path="profile/*" element={<Profile/>}/>
           </Routes>
           <Footer/>
       </BrowserRouter>
