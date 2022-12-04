@@ -1,24 +1,12 @@
-import  React,{ createContext } from "react";
+import  React from "react";
 export const GlobalState = React.createContext()
 
 export const GlobalStateStore = (props) => {
 
 
   const [ userInfo , setUserInfo ] = React.useState(null)
-
-
-
-  React.useEffect(() => {
-
-    if(userInfo){
-      const { token } = userInfo
-      localStorage.setItem('token' , token)
-
-    }
-
-  } , [userInfo])
+ 
   
-
 
   async function fetchApi(url, options){
     try {
@@ -28,7 +16,7 @@ export const GlobalStateStore = (props) => {
 
       
     }catch(error){
-      throw new Error
+      throw new Error()
     }
 
 
@@ -36,6 +24,7 @@ export const GlobalStateStore = (props) => {
 
 
   return (
+
     <GlobalState.Provider value={{ userInfo , setUserInfo , fetchApi}}>
         {props.children}
     </GlobalState.Provider>

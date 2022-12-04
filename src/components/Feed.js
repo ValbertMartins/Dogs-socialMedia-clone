@@ -1,5 +1,5 @@
 import React from 'react'
-import useFetch from "../hooks/useFetch"
+
 import PostCollection from './feed/PostCollection'
 
 const Feed = () => {
@@ -22,7 +22,7 @@ const Feed = () => {
           const response = await fetch(`https://dogsapi.origamid.dev/json/api/photo/?_total=6&_page=${currentPage}&user=0`)
           const json = await response.json()
           
-            json.length == 0 ? setnextPageExists(false) : setFeed( oldFeed => [...oldFeed, json ]) 
+            json.length === 0 ? setnextPageExists(false) : setFeed( oldFeed => [...oldFeed, json ]) 
            
             if(json.length < 6) {
               setnextPageExists(false)

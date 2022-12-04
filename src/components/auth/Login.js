@@ -2,6 +2,7 @@ import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { GlobalState } from '../../context/GlobalState'
 import styles from "../../css/Auth.module.css"
+import useLocalStorage from '../../hooks/useLocalStorage'
 import Input from './Input'
 
 
@@ -19,6 +20,16 @@ const Login = () => {
 
   const navigate = useNavigate()
   
+  const [ localToken , setLocalToken ] = useLocalStorage()
+
+  React.useEffect(() => {
+    
+    if(localToken !== "null" && localToken !== null){
+      navigate('/profile')
+    }
+  } , [localToken,navigate])
+ 
+
   const options =  {
     method: "POST",
     headers: {"Content-type": "application/json"},
@@ -33,6 +44,7 @@ const Login = () => {
   
   const handleSubmit = ( event => {
     event.preventDefault()
+    
     setIsLoading(true)
 
     if(password && user){
@@ -52,14 +64,10 @@ const Login = () => {
         // }
 
         const [ payload , response] = await fetchApi(`https://dogsapi.origamid.dev/json/jwt-auth/v1/token`, options)
-        console.log(response)
         if(!response.ok) return setErrorLogin(true)
         setUserInfo(payload)
-        navigate('/profile')
+        setLocalToken(payload.token)
         
-        
-
-
       })() 
     } 
   })
@@ -70,7 +78,6 @@ const Login = () => {
     <section className={`${styles.loginSection}`}>
       <div className={styles.outdoorContainer}>
       </div>
-
 
       <div className={`${styles.formContainer} animationLeft`}>
         <h1 className={styles.title}>Login</h1>
