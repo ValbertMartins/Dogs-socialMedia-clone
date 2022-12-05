@@ -24,10 +24,20 @@ const Login = () => {
 
   React.useEffect(() => {
     
-    if(localToken !== "null" && localToken !== null){
-      navigate('/profile')
+    if(localToken){
+
+      (async () => {
+        const [ payload ] = await fetchApi(`https://dogsapi.origamid.dev/json/jwt-auth/v1/token/validate`, {
+
+          method: "POST", 
+          headers: {"Content-type": "application/json", authorization: `Bearer ${localToken}`}
+        })
+        if(payload.data.status === 200) return navigate('/profile')
+        
+      })()
+      
     }
-  } , [localToken,navigate])
+  } , [localToken])
  
 
   const options =  {

@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from "../../css/Profile.module.css"
-import { NavLink, Route, Routes } from 'react-router-dom'
+import { NavLink, Route, Routes, useNavigate } from 'react-router-dom'
 import MyPicturesIcon from '../svg/MyPicturesIcon'
 import StatisticsIcon from '../svg/StatisticsIcon'
 import CreateIcon from '../svg/CreateIcon'
@@ -11,13 +11,50 @@ import useLocalStorage from '../../hooks/useLocalStorage'
 import { GlobalState } from '../../context/GlobalState'
 
 const Profile = () => {
+
   const [ title , setTitle ] = React.useState('Minha conta')
+  const [ localToken , setLocalToken ] = useLocalStorage()
+  const { userInfo, setUserInfo ,fetchApi } = React.useContext(GlobalState)
+  const navigate = useNavigate()
+  
 
-  const [localToken , setLocalToken ] = useLocalStorage()
-  const { userInfo, setUserInfo } = React.useContext(GlobalState)
+  console.log(localToken)
+  React.useEffect(() => {
+    if(!localToken) {
+      return navigate('/login')
+    }
+  }, [])
 
 
-  console.log(userInfo)
+  
+
+  React.useEffect(() => {
+   
+    
+    (async () => {
+        const [ payload,response ] = await fetchApi(`https://dogsapi.origamid.dev/json/jwt-auth/v1/token/validate`, {
+
+          method: "POST", 
+          headers: {"Content-type": "application/json", authorization: `Bearer ${localToken}`}
+        })
+        console.log(response)
+
+        
+
+        if(payload.data.status === 200){
+          
+        } else {
+          console.log('TRY TO ENTEREDE IN LOGIN ROUTE')
+           navigate('/login')
+           
+        }
+        
+      })()
+
+
+  } , [])
+
+
   return (
 
 
@@ -40,7 +77,7 @@ const Profile = () => {
         </NavLink >
 
         <NavLink to="/login" onClick={() => {
-          
+          setUserInfo(null)
           setLocalToken(localStorage.removeItem('token'))
         }}>
           <LeaveIcon/>

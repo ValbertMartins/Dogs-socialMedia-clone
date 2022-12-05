@@ -7,14 +7,19 @@ const Header = () => {
 
   const { userInfo } = React.useContext(GlobalState)
 
+  
+  
+
   return (
     <header>
         <section className={`${styles.content} container`}>
                 <Link to="/">
                    <DogLogo fill="#333"/>
                 </Link>
-                <Link to="login">
-                    <p className={styles.profile}> {userInfo?.user_display_name} Login / Criar</p>
+                <Link to={userInfo ? "profile" : "login"}>
+                    <p className={styles.profile}> 
+                      {userInfo ? userInfo.user_display_name : "Login / Criar" } 
+                    </p>
                 </Link>
         </section>
 

@@ -8,8 +8,11 @@ const useLocalStorage = () => {
 
 
   React.useEffect(() =>  {
+    
+    if(localToken){
 
-    localStorage.setItem('token', localToken)
+      localStorage.setItem('token', localToken)
+    }
   }, [localToken])
 
   return [localToken, setLocalToken]
