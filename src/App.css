@@ -23,10 +23,8 @@
       
 }
 
-a { 
-    text-decoration: none;
-   
-}
+
+
 
 
 .animationLeft {
@@ -92,10 +90,27 @@ a {
     box-shadow: 0 0 0 3px #fea;
  }
 
+
+ a {
+    text-decoration: none;
+ }
  
- .active { 
-     background-color: #fb1;
-    }
+.active { 
+     border: 1px solid #fb1;
+     box-shadow: 0 0 0 3px #fea;
+     fill: #fb1;
+}
+
+
+.active svg{
+    fill: #fb1;
+}
+.active svg rect {
+    fill: #fb1;
+}
+.active svg path {
+    fill: #fb1;
+}
     
 
 

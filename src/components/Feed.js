@@ -75,8 +75,8 @@ const Feed = () => {
     }, [nextPageExists])
 
     
- 
-  
+
+    
   return (
 
     <section className={`container feed`}>

@@ -75,6 +75,7 @@ const Login = () => {
 
         const [ payload , response] = await fetchApi(`https://dogsapi.origamid.dev/json/jwt-auth/v1/token`, options)
         if(!response.ok) return setErrorLogin(true)
+        console.log(payload)
         setUserInfo(payload)
         setLocalToken(payload.token)
         

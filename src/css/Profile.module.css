@@ -40,11 +40,10 @@
   
 }
 
-.containerProfile a { 
+.navigateButtonsContainer a { 
   margin: 0.5rem;
   height: 40px;
   width: 40px;
-  border: 1px solid transparent;
   background-color: #eee;
   border-radius: 5px;
   cursor: pointer;
@@ -55,8 +54,14 @@
   
 }
 
+
 .navigateButtonsContainer a:hover {
   border: 1px solid black;
-  outline: 2.5px solid #eee;
+  background-color: #fff;
+  box-shadow: 0 0 0 3px #fea;
+  border-color: #fb1;
 }
+
+
+
 

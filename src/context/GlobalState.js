@@ -7,15 +7,8 @@ export const GlobalStateStore = (props) => {
 
   const [ userInfo , setUserInfo ] = React.useState(null)
   
-  const [ localToken , setLocalToken ] = useLocalStorage()
 
-  // console.log(userInfo,'foo')
-  // React.useEffect(() => {
-  //   if(localToken){ 
-
-  //   }
-  // }, [])
-
+ 
   
 
 
