@@ -13,12 +13,13 @@ import { GlobalState } from '../../context/GlobalState'
 const Profile = () => {
 
   const [ title , setTitle ] = React.useState('Minha conta')
+  const [ activeRoute , setActiveRoute ] = React.useState()
   const [ localToken , setLocalToken ] = useLocalStorage()
   const { userInfo, setUserInfo ,fetchApi } = React.useContext(GlobalState)
   const navigate = useNavigate()
   
 
-  console.log(localToken)
+  //test if token exists
   React.useEffect(() => {
     if(!localToken) {
       return navigate('/login')
@@ -27,32 +28,22 @@ const Profile = () => {
 
 
   
-
+  //validate token
   React.useEffect(() => {
-   
     
     (async () => {
-        const [ payload,response ] = await fetchApi(`https://dogsapi.origamid.dev/json/jwt-auth/v1/token/validate`, {
-
+        const [ payload ] = await fetchApi(`https://dogsapi.origamid.dev/json/jwt-auth/v1/token/validate`, {
           method: "POST", 
           headers: {"Content-type": "application/json", authorization: `Bearer ${localToken}`}
-        })
-        console.log(response)
-
-        
-
-        if(payload.data.status === 200){
-          
-        } else {
-          console.log('TRY TO ENTEREDE IN LOGIN ROUTE')
-           navigate('/login')
-           
-        }
-        
+        })        
+        if(!payload.data.status) return navigate('/login')
+  
       })()
-
-
   } , [])
+
+  React.useEffect(() => {
+    
+  }, [])
 
 
   return (
@@ -64,7 +55,7 @@ const Profile = () => {
 
       <article className={styles.navigateButtonsContainer}>
 
-        <NavLink to="" onClick={() => setTitle('Minha Conta')} >
+        <NavLink to="" onClick={() => setTitle('Minha Conta')}>
           <MyPicturesIcon/>
         </NavLink>
 
@@ -72,7 +63,7 @@ const Profile = () => {
           <StatisticsIcon/>
         </NavLink>
 
-        <NavLink to="create" onClick={() => setTitle('Criar')}>
+        <NavLink to="create" onClick={() => setTitle('Poste sua Foto')}>
           <CreateIcon/>
         </NavLink >
 
@@ -83,6 +74,7 @@ const Profile = () => {
           <LeaveIcon/>
           
         </NavLink>
+
       </article>
 
 

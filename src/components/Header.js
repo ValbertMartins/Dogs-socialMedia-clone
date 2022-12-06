@@ -13,11 +13,11 @@ const Header = () => {
   return (
     <header>
         <section className={`${styles.content} container`}>
-                <Link to="/">
+                <Link to="/" >
                    <DogLogo fill="#333"/>
                 </Link>
                 <Link to={userInfo ? "profile" : "login"}>
-                    <p className={styles.profile}> 
+                    <p className={styles.profile} style={{color: "black"}}> 
                       {userInfo ? userInfo.user_display_name : "Login / Criar" } 
                     </p>
                 </Link>
@@ -28,3 +28,6 @@ const Header = () => {
 }
 
 export default Header
+
+
+

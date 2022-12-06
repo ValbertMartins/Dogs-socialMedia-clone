@@ -1,5 +1,5 @@
 .containerProfile { 
-  min-height: 90vh ;
+  min-height: 100vh ;
   max-width: 800px;
   margin: 0 auto;
   padding: 1.3rem;
@@ -8,9 +8,6 @@
   grid-template-rows: 10% 90%;
   
 }
-
-
-
 
 
 .title {
@@ -43,7 +40,7 @@
   
 }
 
-.navigateButtonsContainer a { 
+.containerProfile a { 
   margin: 0.5rem;
   height: 40px;
   width: 40px;
@@ -62,3 +59,4 @@
   border: 1px solid black;
   outline: 2.5px solid #eee;
 }
+

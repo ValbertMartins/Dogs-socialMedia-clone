@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "./components/Header"
 import "./App.css"
-import { BrowserRouter, Routes, Route} from "react-router-dom"
+import { BrowserRouter, Routes, Route, NavLink} from "react-router-dom"
 import Feed from "./components/Feed";
 import Footer from "./components/Footer"
 import Login from "./components/auth/Login"

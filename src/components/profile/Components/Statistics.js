@@ -1,8 +1,10 @@
 import React from 'react'
-
+import Input from "../../auth/Input"
 const Statistics = () => {
   return (
-    <div>Statistics</div>
+    <section>
+      
+    </section>
   )
 }
 
