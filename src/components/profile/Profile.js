@@ -7,22 +7,24 @@ import CreateIcon from '../svg/CreateIcon'
 import LeaveIcon from '../svg/LeaveIcon'
 import Statistics from './Components/Statistics'
 import Create from "./Components/Create"
-import useLocalStorage from '../../hooks/useLocalStorage'
 import { GlobalState } from '../../context/GlobalState'
 import MyPosts from './Components/MyPosts'
 
 const Profile = () => {
 
   const [ title , setTitle ] = React.useState('Minha Conta')
-  const [ localToken , setLocalToken ] = useLocalStorage()
-  const { userInfo, setUserInfo ,fetchApi } = React.useContext(GlobalState)
-  const [ userId  , setUserId ] = React.useState(null)
+  
+  const { 
+    user,
+    setUser,   
+    localToken , 
+    setLocalToken, 
+    setValidatedToken
+  } = React.useContext(GlobalState)
+
   const [ profileActiveIcon , setProfileActiveIcon] = React.useState(true)
   const navigate = useNavigate()
   
- 
-  
-
 
   //test if token exists
   React.useEffect(() => {
@@ -31,43 +33,36 @@ const Profile = () => {
     }
   }, [])
 
-
   
-  //validate token
   React.useEffect(() => {
-    (async () => {
-        const [ payload ] = await fetchApi(`https://dogsapi.origamid.dev/json/jwt-auth/v1/token/validate`, {
-          method: "POST", 
-          headers: {
-            "Content-type": "application/json", 
-            authorization: `Bearer ${localToken}`
-          }
-        })        
-        if(!payload.data.status) return navigate('/login')
-  
-      })()
-  } , [])
 
-  
-  //Request user id 
-  React.useEffect(() => {
-    
-    (async () => {
-      const [ payload ] = await fetchApi(`https://dogsapi.origamid.dev/json/api/user`, {
-        method: "GET", 
-        headers: {
-          "Content-type": "application/json", 
-          authorization: `Bearer ${localToken}`
-        }
-      })        
-      setUserId(payload.id)
+    if(user === false){
+      navigate('/login')
+    }
+  }, [user])
+  // React.useEffect(() => {
+  //   if(localToken){
 
-    })()
-  } , [])
+  //     (async () => {
+  //       const [ payload , response ] = await fetchApi(`https://dogsapi.origamid.dev/json/jwt-auth/v1/token/validate`, {
+  //         method: "POST", 
+  //         headers: {
+  //           "Content-type": "application/json", 
+  //           authorization: `Bearer ${localToken}`
+  //         }
+  //       })      
+  //       if(!response.ok) {
+  //         return navigate('/login')
+  //       }
+  //       setValidatedToken(true)
+       
+  //     })()
+  //   }
 
-  
 
-  
+  // }, [localToken])
+
+
 
 
   return (
@@ -107,7 +102,8 @@ const Profile = () => {
 
         <NavLink to="/login" 
           onClick={() => {
-          setUserInfo(null)
+          setUser(null)
+          setValidatedToken(false)
           setLocalToken(localStorage.removeItem('token'))
         }}>
           <LeaveIcon/>
@@ -119,7 +115,7 @@ const Profile = () => {
       <Routes>
           <Route 
             path=""
-            element={<MyPosts userId={userId} localToken={localToken}/>}
+            element={<MyPosts userId={user?.id} localToken={localToken}/>}
             />
           <Route 
             path='statistics' 

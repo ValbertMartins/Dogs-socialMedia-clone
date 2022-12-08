@@ -5,8 +5,6 @@ const useLocalStorage = () => {
   const  [ localToken , setLocalToken ] = React.useState(localStorage.getItem('token'))
 
   
-
-
   React.useEffect(() =>  {
     
     if(localToken){
@@ -15,7 +13,7 @@ const useLocalStorage = () => {
     }
   }, [localToken])
 
-  return [localToken, setLocalToken]
+  return [localToken, setLocalToken ]
 
   
 }

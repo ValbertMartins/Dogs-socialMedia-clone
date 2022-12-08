@@ -1,3 +1,23 @@
+.myPicturesContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 0.4rem 0.8rem ;
+  margin: 0.5rem;
+  grid-column-start: 1;
+  grid-column-end: 3;
+  
+  
+}
+
+
+.myPicturesContainer  img:nth-child(2) {
+  grid-column-start: 2;
+  grid-column-end: 4;
+  grid-row: 2 span;
+}
+
+
 .myPicturesContainer img {
-  max-width: 300px;
+  width: 100%;
+  border-radius: 5px;
 }

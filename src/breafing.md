@@ -1,13 +1,13 @@
 ### app
 
 [x] header
-[] feed page
+[x] feed page
 [x] footer
 
 
 ### login-auth-system
 [] create new user
-[]  login user
+[x]  login user
 [] reset password
 
 

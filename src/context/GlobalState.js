@@ -1,11 +1,68 @@
 import  React from "react";
-import useLocalStorage from "../hooks/useLocalStorage";
 export const GlobalState = React.createContext()
 
 export const GlobalStateStore = (props) => {
 
+  
+  const [ user , setUser ] = React.useState(null)
+  const [ validatedToken , setValidatedToken ] = React.useState(false)
+  const [ localToken , setLocalToken ] = React.useState(localStorage.getItem('token'))
+  
+  
+  console.log(validatedToken)
+  React.useEffect(() =>  { 
 
-  const [ userInfo , setUserInfo ] = React.useState(null)
+    if(localToken){
+      localStorage.setItem('token', localToken)
+    }
+  }, [localToken])
+ 
+
+  
+
+
+  React.useEffect(() => {
+
+    if(localToken){
+
+      (async () => {
+        const [ payload , response ] = await fetchApi(`https://dogsapi.origamid.dev/json/jwt-auth/v1/token/validate`, {
+          method: "POST", 
+          headers: {
+            "Content-type": "application/json", 
+            authorization: `Bearer ${localToken}`
+          }
+        })      
+        if(!response.ok) {
+          return setUser(false)
+        }
+        setValidatedToken(true)
+       
+      })()
+    }
+
+
+  }, [localToken])
+
+
+
+  React.useEffect(() => {       
+    if(validatedToken){
+      (async () => {
+          const [ payload ] = await fetchApi(`https://dogsapi.origamid.dev/json/api/user`, {
+            method: "GET", 
+            headers: {
+              "Content-type": "application/json", 
+              authorization: `Bearer ${localToken}`
+            }
+          })      
+          console.log(payload)
+          setUser(payload)
+        })()
+    }
+     
+  } , [validatedToken])
+
   
 
  
@@ -29,7 +86,16 @@ export const GlobalStateStore = (props) => {
 
   return (
 
-    <GlobalState.Provider value={{ userInfo , setUserInfo , fetchApi}}>
+    <GlobalState.Provider value={{ 
+      user , 
+      setUser , 
+      fetchApi, 
+      localToken , 
+      setLocalToken,
+      validatedToken,
+      setValidatedToken
+    }
+      }>
         {props.children}
     </GlobalState.Provider>
   )

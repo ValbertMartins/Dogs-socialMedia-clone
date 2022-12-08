@@ -5,20 +5,18 @@ import DogLogo from './svg/DogLogo'
 import { GlobalState } from '../context/GlobalState'
 const Header = () => {
 
-  const { userInfo } = React.useContext(GlobalState)
+  const { user } = React.useContext(GlobalState)
 
   
-  
-
   return (
     <header>
         <section className={`${styles.content} container`}>
                 <Link to="/" >
                    <DogLogo fill="#333"/>
                 </Link>
-                <Link to={userInfo ? "profile" : "login"}>
+                <Link to={user ? "profile" : "login"}>
                     <p className={styles.profile} style={{color: "black"}}> 
-                      {userInfo ? userInfo.user_display_name : "Login / Criar" } 
+                      {user ? user.nome : "Login / Criar" } 
                     </p>
                 </Link>
         </section>
