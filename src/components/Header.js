@@ -5,7 +5,7 @@ import DogLogo from './svg/DogLogo'
 import { GlobalState } from '../context/GlobalState'
 const Header = () => {
 
-  const { user } = React.useContext(GlobalState)
+  const { userAuth } = React.useContext(GlobalState)
 
   
   return (
@@ -14,9 +14,9 @@ const Header = () => {
                 <Link to="/" >
                    <DogLogo fill="#333"/>
                 </Link>
-                <Link to={user ? "profile" : "login"}>
+                <Link to={userAuth ? "profile" : "login"}>
                     <p className={styles.profile} style={{color: "black"}}> 
-                      {user ? user.nome : "Login / Criar" } 
+                      {userAuth ? userAuth.nome : "Login / Criar" } 
                     </p>
                 </Link>
         </section>

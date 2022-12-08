@@ -15,13 +15,13 @@ const Profile = () => {
   const [ title , setTitle ] = React.useState('Minha Conta')
   
   const { 
-    user,
-    setUser,   
+    userAuth,
+    setUserAuth,   
     localToken , 
     setLocalToken, 
     setValidatedToken
   } = React.useContext(GlobalState)
-
+  
   const [ profileActiveIcon , setProfileActiveIcon] = React.useState(true)
   const navigate = useNavigate()
   
@@ -36,35 +36,13 @@ const Profile = () => {
   
   React.useEffect(() => {
 
-    if(user === false){
+    if(userAuth === false){
       navigate('/login')
     }
-  }, [user])
-  // React.useEffect(() => {
-  //   if(localToken){
+  }, [userAuth])
+  
 
-  //     (async () => {
-  //       const [ payload , response ] = await fetchApi(`https://dogsapi.origamid.dev/json/jwt-auth/v1/token/validate`, {
-  //         method: "POST", 
-  //         headers: {
-  //           "Content-type": "application/json", 
-  //           authorization: `Bearer ${localToken}`
-  //         }
-  //       })      
-  //       if(!response.ok) {
-  //         return navigate('/login')
-  //       }
-  //       setValidatedToken(true)
-       
-  //     })()
-  //   }
-
-
-  // }, [localToken])
-
-
-
-
+  
   return (
 
 
@@ -102,7 +80,7 @@ const Profile = () => {
 
         <NavLink to="/login" 
           onClick={() => {
-          setUser(null)
+          setUserAuth(null)
           setValidatedToken(false)
           setLocalToken(localStorage.removeItem('token'))
         }}>
@@ -115,7 +93,7 @@ const Profile = () => {
       <Routes>
           <Route 
             path=""
-            element={<MyPosts userId={user?.id} localToken={localToken}/>}
+            element={<MyPosts userId={userAuth?.id} localToken={localToken}/>}
             />
           <Route 
             path='statistics' 

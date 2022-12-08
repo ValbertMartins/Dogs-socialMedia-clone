@@ -4,12 +4,12 @@ export const GlobalState = React.createContext()
 export const GlobalStateStore = (props) => {
 
   
-  const [ user , setUser ] = React.useState(null)
+  const [ userAuth , setUserAuth ] = React.useState(null)
   const [ validatedToken , setValidatedToken ] = React.useState(false)
   const [ localToken , setLocalToken ] = React.useState(localStorage.getItem('token'))
   
   
-  console.log(validatedToken)
+
   React.useEffect(() =>  { 
 
     if(localToken){
@@ -34,7 +34,7 @@ export const GlobalStateStore = (props) => {
           }
         })      
         if(!response.ok) {
-          return setUser(false)
+          return setUserAuth(false)
         }
         setValidatedToken(true)
        
@@ -57,7 +57,7 @@ export const GlobalStateStore = (props) => {
             }
           })      
           console.log(payload)
-          setUser(payload)
+          setUserAuth(payload)
         })()
     }
      
@@ -87,8 +87,8 @@ export const GlobalStateStore = (props) => {
   return (
 
     <GlobalState.Provider value={{ 
-      user , 
-      setUser , 
+      userAuth , 
+      setUserAuth , 
       fetchApi, 
       localToken , 
       setLocalToken,

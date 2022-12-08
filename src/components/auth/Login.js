@@ -2,7 +2,7 @@ import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { GlobalState } from '../../context/GlobalState'
 import styles from "../../css/Auth.module.css"
-
+import { options } from './Register'
 import Input from './Input'
 
 const Login = () => {
@@ -10,32 +10,16 @@ const Login = () => {
   const [ password , setPassword ] = React.useState('')
   const [ isLoading , setIsLoading ] = React.useState(false)
   const [ errorLogin , setErrorLogin ] = React.useState(false)
-  const { fetchApi , setLocalToken , user: authUser } = React.useContext(GlobalState)  
+  const { fetchApi , setLocalToken ,  userAuth } = React.useContext(GlobalState)  
 
   const navigate = useNavigate()
    
   React.useEffect(() => {
-    
-    // if(localToken){
 
-    //   (async () => {
-    //     const [ payload ] = await fetchApi(`https://dogsapi.origamid.dev/json/jwt-auth/v1/token/validate`, {
-    //       method: "POST", 
-    //       headers: {"Content-type": "application/json", authorization: `Bearer ${localToken}`}
-    //     })
-    //     if(payload.data.status === 200) {
-    //       setValidatedToken(true)
-    //       navigate('/profile')
-    //     }
-        
-    //   })()
-      
-    // }
-
-    if(authUser){
+    if(userAuth){
       navigate('/profile')
     }
-  } , [authUser])
+  } , [userAuth])
  
 
   const options =  {
@@ -48,8 +32,6 @@ const Login = () => {
 
   }
 
-
-  
   const handleSubmit = ( event => {
     event.preventDefault()
    
@@ -60,6 +42,7 @@ const Login = () => {
       ( async () => {
        
         const [ payload , response] = await fetchApi(`https://dogsapi.origamid.dev/json/jwt-auth/v1/token`, options)
+
         if(!response.ok) {
           setIsLoading(false)
           return setErrorLogin(true)
