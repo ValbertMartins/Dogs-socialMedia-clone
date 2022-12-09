@@ -11,14 +11,15 @@ const Header = () => {
   return (
     <header>
         <section className={`${styles.content} container`}>
-                <Link to="/" >
-                   <DogLogo fill="#333"/>
-                </Link>
-                <Link to={userAuth ? "profile" : "login"}>
-                    <p className={styles.profile} style={{color: "black"}}> 
-                      {userAuth ? userAuth.nome : "Login / Criar" } 
-                    </p>
-                </Link>
+          
+          <Link to="/" >
+              <DogLogo fill="#333"/>
+          </Link>
+          <Link to={userAuth ? "profile" : "login"}>
+              <p className={styles.profile} style={{color: "black"}}> 
+                {userAuth ? userAuth.nome : "Login / Criar" } 
+              </p>
+          </Link>
         </section>
 
     </header>

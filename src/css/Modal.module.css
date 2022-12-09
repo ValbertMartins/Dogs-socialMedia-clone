@@ -1,0 +1,20 @@
+/* .modalContainer { 
+  position: fixed;
+  background-color: grey;
+  height: 550px;
+  width: 900px;
+  z-index: 1000;
+  top: 25%;
+  transform: translateX(-70px);
+
+} */
+
+.modalContainer {
+  background-color: rgba(0, 0, 0, 0.4);
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+
+}

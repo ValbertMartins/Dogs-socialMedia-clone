@@ -8,6 +8,7 @@ import Login from "./components/auth/Login"
 import { GlobalStateStore } from "./context/GlobalState";
 import Register from "./components/auth/Register";
 import Profile from "./components/profile/Profile";
+import Modal from "./components/feed/Modal";
 
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
     <main>
     <GlobalStateStore>
       <BrowserRouter>
+          
           <Header/> 
           <Routes>
             <Route path="/" element={<Feed/>}/>

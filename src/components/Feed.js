@@ -1,4 +1,5 @@
 import React from 'react'
+import Modal from './feed/Modal'
 
 import PostCollection from './feed/PostCollection'
 
@@ -76,17 +77,28 @@ const Feed = () => {
 
     
 
+
+ 
+    const [ activeModal , setActiveModal ] = React.useState(false)
     
   return (
 
-    <section className={`container feed`}>
-       
+    <section className={`feed container`}>
        {feed.map( (collectionPosts,index) => {
-              return <PostCollection collectionPosts={collectionPosts} key={index}/>    
+              return (
+                <PostCollection 
+                  collectionPosts={collectionPosts}
+                  key={index}
+                  setActiveModal={setActiveModal}
+                  activeModal={activeModal}
+                />
+              )    
             })}
 
        {!nextPageExists && <p className="contentEnd animationLeft">Não existem mais postagens</p>}
+       {activeModal && <Modal/>}
 
+      
     </section>
 
   )

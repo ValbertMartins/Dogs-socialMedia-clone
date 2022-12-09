@@ -9,6 +9,7 @@
 }
 
 
+
 .container { 
     max-width: 800px;
     margin: 0 auto;
@@ -20,12 +21,8 @@
 
 .feed {
     min-height: 100vh;
-      
+    
 }
-
-
-
-
 
 .animationLeft {
     opacity: 0;
