@@ -96,7 +96,7 @@ const Feed = () => {
             })}
 
        {!nextPageExists && <p className="contentEnd animationLeft">Não existem mais postagens</p>}
-       {activeModal && <Modal/>}
+       {activeModal && <Modal setActiveModal={setActiveModal}/>}
 
       
     </section>

@@ -16,5 +16,29 @@
   position: fixed;
   left: 0;
   top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+}
 
+.modalContent {
+  height: 570px;
+  width: 900px;
+  border-radius: 5px;
+  background-color: #fff;
+  transition: 0.3s;
+  animation: scaleAnimation 0.3s forwards ease;
+}
+
+
+
+
+@keyframes scaleAnimation {
+  from {
+    transform: scale(0.8);
+  }
+  to {
+    transform: scale(1);
+  }
 }
