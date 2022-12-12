@@ -18,7 +18,7 @@ const Modal = ({setActiveModal}) => {
         setActiveModal(false)
       }
   }
-
+  
   
 
   React.useEffect(() => {
@@ -30,6 +30,8 @@ const Modal = ({setActiveModal}) => {
   }, [idModal])
   
 
+  console.log(photo)
+
   return (
     <section 
       className={styles.modalContainer}
@@ -40,22 +42,21 @@ const Modal = ({setActiveModal}) => {
 
       <div className={styles.modalContent}>
         <div className={styles.imagePostContainer}>
-          <img src={photo.src}/>
+          <img src={photo.src} alt={photo.title}/>
         </div>
         <div className={styles.postContent}>
           <div className={styles.viewsContainer}>
-              <p>@cat</p>
-              <p>10000</p>
+              <p>@{photo.author}</p>
+              <p className={styles.acessos}>{photo.acessos}</p>
           </div>
+
           <div className={styles.infoContainer}>
-            <h1 className={styles.dogName}>Ellie</h1>
-            <span>4kg </span>
-            <span>12 anos</span>
-
-            
-              <Coment/>
+            <h1 className={styles.dogName}>{photo.title}</h1>
+            <span>{photo.peso} kg</span>
+            <span>{photo.idade} anos </span>
           </div>
 
+          <Coment/>
         </div>
       </div>  
     }

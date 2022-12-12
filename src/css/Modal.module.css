@@ -1,13 +1,3 @@
-/* .modalContainer { 
-  position: fixed;
-  background-color: grey;
-  height: 550px;
-  width: 900px;
-  z-index: 1000;
-  top: 25%;
-  transform: translateX(-70px);
-
-} */
 
 .modalContainer {
   background-color: rgba(0, 0, 0, 0.4);
@@ -29,16 +19,21 @@
   background-color: #fff;
   animation: scaleAnimation 0.3s forwards ease;
   display: flex;
+
 }
 
 .imagePostContainer {
-  width: 60%;
+  width: 65%;
   height: 100%;
 }
 
 .postContent {
-  width: 40%;
-  padding: 5%;
+  width: 35%;
+  padding: 3% 3% 2% 3%;
+  min-height: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 0.5fr 0.5fr 10fr;
 }
 
 .imagePostContainer img {
@@ -51,6 +46,100 @@
 .viewsContainer {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+}
+
+
+
+
+.dogName { 
+  font-size: 3rem;
+  font-family: "spectral";
+  position: relative;
+  line-height: 3rem;
+  margin: 1.5rem 0;
+  
+}
+
+.dogName::before {
+  content: "";
+  background-color: #fb1;
+  width: 1.6rem;
+  height: 1.6rem;
+  border-radius: 3px;
+  display: inline-block;
+  position: absolute;
+  z-index: -1;
+  bottom: 0;
+
+ 
+} 
+
+.infoContainer span { 
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-right:1rem;
+}
+
+.infoContainer span::before {
+  content: "|";
+  margin: 0 .3rem;
+}
+
+
+.acessos {
+  display: flex;
+  align-items: center;
+}
+
+.acessos::before  { 
+  content: "";
+  display: inline-block;
+  background: url("https://dogs.origamid.dev/static/media/visualizacao-black.957befc3.svg") center no-repeat;
+  width: 16px;
+  height: 16px;
+  margin: 0 0.2rem;
+}
+
+
+
+.comentContainer { 
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+}
+
+.inputComentContainer form {
+  display: flex;
+  align-items: center;
+}
+
+.inputComentContainer input[type="text"]{
+  height: 60px;
+  outline: none;
+  border: none;
+  background-color: #eee;
+  transition: 0.3s;
+  width: 80%;
+  border-radius: 3px;
+  text-align: start;  
+  padding: 0 3%;
+
+}
+
+.inputComentContainer input[type="text"]:hover {
+  box-shadow: 0 0 0 3px #fea;  
+}
+
+.inputComentContainer button {
+  height: 60px;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  width: 20%;
+  background-color: #fff;
+  margin: 0 0.3rem;
 }
 
 
