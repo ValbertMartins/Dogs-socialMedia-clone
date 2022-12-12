@@ -1,4 +1,5 @@
 import React from 'react'
+import { ModalProvider } from '../context/ModalState'
 import Modal from './feed/Modal'
 
 import PostCollection from './feed/PostCollection'
@@ -27,9 +28,6 @@ const Feed = () => {
            
             if(json.length < 6) {
               setnextPageExists(false)
-              
-          
-
           }
 
         }catch(erro){
@@ -41,9 +39,6 @@ const Feed = () => {
     }, [currentPage])
  
 
-    
-   
-  
     React.useEffect(() => {
       const observer = new IntersectionObserver((entries) => {
         
@@ -56,12 +51,6 @@ const Feed = () => {
               setCurrentPage( oldValue => oldValue + 1) : 
                 observer.unobserve(document.querySelector("footer"))
 
-            // if(nextPageExists){
-            //   setCurrentPage( oldValue => oldValue + 1)
-            // } else {
-            //   observer.unobserve(document.querySelector("#footer"))
-      
-            // }
           }
         })
 
@@ -79,28 +68,32 @@ const Feed = () => {
 
 
  
-    const [ activeModal , setActiveModal ] = React.useState(false)
+    const [ activeModal , setActiveModal ] = React.useState(false)  
     
   return (
 
-    <section className={`feed container`}>
-       {feed.map( (collectionPosts,index) => {
-              return (
-                <PostCollection 
-                  collectionPosts={collectionPosts}
-                  key={index}
-                  setActiveModal={setActiveModal}
-                  activeModal={activeModal}
-                />
-              )    
+
+    <ModalProvider>
+      <section className={`feed container`}>
+        {feed.map( (collectionPosts,index) => {
+          return (
+            <PostCollection 
+            collectionPosts={collectionPosts}
+            key={index}
+            setActiveModal={setActiveModal}
+            activeModal={activeModal}
+            />
+            )    
             })}
 
-       {!nextPageExists && <p className="contentEnd animationLeft">Não existem mais postagens</p>}
-       {activeModal && <Modal setActiveModal={setActiveModal}/>}
+        {!nextPageExists && <p className="contentEnd animationLeft">Não existem mais postagens</p>}
 
-      
-    </section>
-
+        {
+          activeModal && 
+          <Modal setActiveModal={setActiveModal}/>
+          }
+      </section>
+    </ModalProvider>
   )
 
 }
