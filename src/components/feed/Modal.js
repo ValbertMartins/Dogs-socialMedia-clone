@@ -12,6 +12,7 @@ const Modal = ({setActiveModal}) => {
   const [ isLoading , setIsLoading ] = React.useState(true)
 
 
+  console.log(photo)
 
   const closeModal = ({target}) => {
       if(target.className.includes('modalContainer')){
@@ -23,14 +24,13 @@ const Modal = ({setActiveModal}) => {
 
   React.useEffect(() => {
     ( async () => {
-      const [ payload , response ] = await fetchApi(`https://dogsapi.origamid.dev/json/api/photo/${idModal}`)
+      const [ payload  ] = await fetchApi(`https://dogsapi.origamid.dev/json/api/photo/${idModal}`)
       setPhoto(payload.photo)
       setIsLoading(false)
     } )()
   }, [idModal])
   
 
-  console.log(photo)
 
   return (
     <section 
@@ -56,7 +56,7 @@ const Modal = ({setActiveModal}) => {
             <span>{photo.idade} anos </span>
           </div>
 
-          <Coment/>
+          <Coment idModal={idModal}/>
         </div>
       </div>  
     }

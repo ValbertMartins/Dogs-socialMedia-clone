@@ -29,7 +29,7 @@
 
 .postContent {
   width: 35%;
-  padding: 3% 3% 2% 3%;
+  padding: 2%;
   min-height: 100%;
   display: grid;
   grid-template-columns: 1fr;
@@ -47,6 +47,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin: 0.8rem;
 }
 
 
@@ -57,7 +58,7 @@
   font-family: "spectral";
   position: relative;
   line-height: 3rem;
-  margin: 1.5rem 0;
+  margin: 1.5rem 0.5rem;
   
 }
 
@@ -115,20 +116,22 @@
   align-items: center;
 }
 
-.inputComentContainer input[type="text"]{
+.inputComentContainer textarea{
   height: 60px;
   outline: none;
   border: none;
   background-color: #eee;
   transition: 0.3s;
-  width: 80%;
+  width: 85%;
   border-radius: 3px;
   text-align: start;  
-  padding: 0 3%;
+  padding: 3%;
+  resize: none;
+  font-size: 1.1rem;
 
 }
 
-.inputComentContainer input[type="text"]:hover {
+.inputComentContainer textarea:hover {
   box-shadow: 0 0 0 3px #fea;  
 }
 
@@ -142,6 +145,15 @@
   margin: 0 0.3rem;
 }
 
+
+.comments { 
+  margin: 1rem 0rem;
+
+}
+
+.comments p {
+  margin: 0.5rem 0rem;
+}
 
 @keyframes scaleAnimation {
   from {

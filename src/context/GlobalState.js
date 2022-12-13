@@ -9,7 +9,7 @@ export const GlobalStateStore = (props) => {
   const [ localToken , setLocalToken ] = React.useState(localStorage.getItem('token'))
   
   
-
+  //store localToken
   React.useEffect(() =>  { 
 
     if(localToken){
@@ -20,13 +20,13 @@ export const GlobalStateStore = (props) => {
 
   
 
-
+  //validate localToken
   React.useEffect(() => {
 
     if(localToken){
 
       (async () => {
-        const [ payload , response ] = await fetchApi(`https://dogsapi.origamid.dev/json/jwt-auth/v1/token/validate`, {
+        const [ , response ] = await fetchApi(`https://dogsapi.origamid.dev/json/jwt-auth/v1/token/validate`, {
           method: "POST", 
           headers: {
             "Content-type": "application/json", 
@@ -45,7 +45,7 @@ export const GlobalStateStore = (props) => {
   }, [localToken])
 
 
-
+  //save user infos
   React.useEffect(() => {       
     if(validatedToken){
       (async () => {

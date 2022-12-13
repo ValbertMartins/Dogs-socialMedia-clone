@@ -2,7 +2,6 @@ import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { GlobalState } from '../../context/GlobalState'
 import styles from "../../css/Auth.module.css"
-import { options } from './Register'
 import Input from './Input'
 
 const Login = () => {
@@ -19,7 +18,7 @@ const Login = () => {
     if(userAuth){
       navigate('/profile')
     }
-  } , [userAuth])
+  } , [userAuth,navigate])
  
 
   const options =  {

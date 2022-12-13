@@ -1,29 +1,9 @@
+
 import React from 'react'
-
-// const useFetch = () => {
-
-//   const [ json , setJson ] = React.useState(null) 
-
-  
-
-
-
-//   const fetchData = async (url,options) => {
-//     const response = await fetch(url, options)
-//     const data = await response.json()
-//     setJson(data)
-//   }
-   
-  
-//   return {json , fetchData}
-
-
-// }
-
 
 
 const useFetch = (url,options) => {
-
+  const [ response , setResponse ] = React.useState(null)
   const [ payload , setPayload ] = React.useState(null) 
   const [ error , setError ] = React.useState(false)
   const [ isLoading , setIsLoading ] = React.useState(true) 
@@ -31,16 +11,14 @@ const useFetch = (url,options) => {
 
   React.useEffect(() => {
     ( async () =>  {
-
       try { 
         const response = await fetch(url, options)
         const data = await response.json()
+        setResponse(response)
         setPayload(data)
-        setIsLoading(false)
 
       } catch(erro){ 
-
-        setError(true)
+        setError(erro)
 
       } finally { 
           setIsLoading(false)
@@ -48,15 +26,9 @@ const useFetch = (url,options) => {
 
     
     })()
-
-    // fetch(url, options)
-    //   .then( response => response.json())
-    //       .then( data =>  setJson(data))
- 
-
   }, [])
   
-  return {payload, isLoading , error}
+  return { payload , isLoading , error , response}
 }
 
 
