@@ -1,7 +1,7 @@
 import React from 'react'
 import { ModalProvider } from '../context/ModalState'
+import useFetch from '../hooks/useFetch'
 import Modal from './feed/Modal'
-
 import PostCollection from './feed/PostCollection'
 
 const Feed = () => {
@@ -12,32 +12,51 @@ const Feed = () => {
   const [ currentPage, setCurrentPage ] = React.useState(1)
   const [ nextPageExists, setnextPageExists ] = React.useState(true)
 
-  
-  
+
+
+
+  const { payload } = 
+    useFetch(`https://dogsapi.origamid.dev/json/api/photo/?_total=6&_page=${currentPage}&user=0`)
+
+
   React.useEffect(() => {
-        
-    
-    ( async () => {
-    
-      try {
-        
-          const response = await fetch(`https://dogsapi.origamid.dev/json/api/photo/?_total=6&_page=${currentPage}&user=0`)
-          const json = await response.json()
-          
-          json.length === 0 ? setnextPageExists(false) : setFeed( oldFeed => [...oldFeed, json ]) 
-          
-          if(json.length < 6) {
-            setnextPageExists(false)
-        }
-        
+    if(payload){
+      setFeed( oldFeed => [...oldFeed, payload ]) 
 
-      }catch(erro){
-
+      if(payload.length < 6 && payload.length > 0) {
+        setnextPageExists(false)
       }
-          
-    })()
+    }
 
-  }, [currentPage])
+  }, [ payload ])
+  
+
+
+  
+  // React.useEffect(() => {
+        
+    
+  //   ( async () => {
+    
+  //     try {
+        
+  //         const response = await fetch(`https://dogsapi.origamid.dev/json/api/photo/?_total=6&_page=${currentPage}&user=0`)
+  //         const json = await response.json()
+          
+  //         json.length === 0 ? setnextPageExists(false) : setFeed( oldFeed => [...oldFeed, json ]) 
+          
+  //         if(json.length < 6) {
+  //           setnextPageExists(false)
+  //       }
+        
+
+  //     }catch(erro){
+
+  //     }
+          
+  //   })()
+
+  // }, [currentPage])
 
 
   React.useEffect(() => {
@@ -71,6 +90,8 @@ const Feed = () => {
 
   const [ activeModal , setActiveModal ] = React.useState(false)  
   
+
+
   return (
 
 
@@ -93,6 +114,7 @@ const Feed = () => {
           activeModal && 
           <Modal setActiveModal={setActiveModal}/>
           }
+        
       </section>
     </ModalProvider>
   )

@@ -31,7 +31,7 @@ const Profile = () => {
     if(!localToken) {
       return navigate('/login')
     }
-  }, [])
+  }, [localToken,navigate])
 
   
   React.useEffect(() => {
@@ -39,7 +39,7 @@ const Profile = () => {
     if(userAuth === false){
       navigate('/login')
     }
-  }, [userAuth])
+  }, [userAuth,navigate])
   
 
   

@@ -1,18 +1,15 @@
 import React from 'react'
 import styles from "../../css/Modal.module.css"
 import { ModalContext } from '../../context/ModalState'
-import { GlobalState } from "../../context/GlobalState"
 import Coment from "./Coment"
+import useFetch from '../../hooks/useFetch'
 const Modal = ({setActiveModal}) => {
 
-
-  const { fetchApi } = React.useContext(GlobalState)
   const { idModal } = React.useContext(ModalContext)
   const [ photo , setPhoto ] = React.useState({})
   const [ isLoading , setIsLoading ] = React.useState(true)
 
 
-  console.log(photo)
 
   const closeModal = ({target}) => {
       if(target.className.includes('modalContainer')){
@@ -21,22 +18,27 @@ const Modal = ({setActiveModal}) => {
   }
   
   
+  const { payload } = useFetch(`https://dogsapi.origamid.dev/json/api/photo/${idModal}`, {
+    cache: "no-store"
+  })
 
   React.useEffect(() => {
-    ( async () => {
-      const [ payload  ] = await fetchApi(`https://dogsapi.origamid.dev/json/api/photo/${idModal}`)
+    if(payload){
       setPhoto(payload.photo)
       setIsLoading(false)
-    } )()
-  }, [idModal])
+    }
+    
+  }, [payload])
   
 
+
+  
 
   return (
     <section 
       className={styles.modalContainer}
       onClick={closeModal}>
-
+        
     {
       isLoading ? <div>Loading</div> :  
 
