@@ -3,7 +3,7 @@ import { ModalProvider } from '../context/ModalState'
 import useFetch from '../hooks/useFetch'
 import Modal from './feed/Modal'
 import PostCollection from './feed/PostCollection'
-
+import Bone from "./svg/Bone"
 const Feed = () => {
    
 
@@ -15,12 +15,13 @@ const Feed = () => {
 
 
 
-  const { payload } = 
+  const { payload, isLoading  } = 
     useFetch(`https://dogsapi.origamid.dev/json/api/photo/?_total=6&_page=${currentPage}&user=0`)
 
-
+  console.log(isLoading)
   React.useEffect(() => {
     if(payload){
+      
       setFeed( oldFeed => [...oldFeed, payload ]) 
 
       if(payload.length < 6 && payload.length > 0) {
@@ -97,23 +98,26 @@ const Feed = () => {
 
     <ModalProvider>
       <section className={`feed container`}>
-        {feed.map( (collectionPosts,index) => {
-          return (
-            <PostCollection 
-            collectionPosts={collectionPosts}
-            key={index}
-            setActiveModal={setActiveModal}
-            activeModal={activeModal}
-            />
-            )    
-            })}
-
-        {!nextPageExists && <p className="contentEnd animationLeft">Não existem mais postagens</p>}
-
-        {
-          activeModal && 
-          <Modal setActiveModal={setActiveModal}/>
-          }
+        { 
+          isLoading ? <Bone/> : 
+           feed.map( (collectionPosts,index) => {
+            return (
+              <PostCollection 
+              collectionPosts={collectionPosts}
+              key={index}
+              setActiveModal={setActiveModal}
+              activeModal={activeModal}
+              />
+              )    
+              })}
+  
+          {!nextPageExists && <p className="contentEnd animationLeft">Não existem mais postagens</p>}
+  
+          {
+            activeModal && 
+            <Modal setActiveModal={setActiveModal}/>
+            }        
+        
         
       </section>
     </ModalProvider>

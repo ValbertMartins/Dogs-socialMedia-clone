@@ -28,7 +28,7 @@ const useFetch = (url,options) => {
     })()
   }, [url])
   
-  return { payload , isLoading , error , response}
+  return { payload , isLoading , error , response , setIsLoading}
 }
 
 

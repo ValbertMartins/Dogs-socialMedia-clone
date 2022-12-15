@@ -7,12 +7,12 @@ import Bone from "../../svg/Bone"
 const MyPosts = ({userId,localToken}) => {
   
   const [ myPictures , setMyPictures ] = React.useState([])
-  const [ isLoading , setIsLoading ] = React.useState(true)
+  //const [ isLoading , setIsLoading ] = React.useState(true)
 
 
   console.log(userId)
 
-  const { payload } = 
+  const { payload , isLoading } = 
     useFetch(`https://dogsapi.origamid.dev/json/api/photo/?_page=1&_total=6&_user=${userId}`, {
       method: "GET", 
           headers: {
@@ -21,13 +21,12 @@ const MyPosts = ({userId,localToken}) => {
           }
     })
 
-    
+  
   //request my pictures
   React.useEffect(() => {  
-   
     if(userId){
       setMyPictures(payload)
-      setIsLoading(false)
+  
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [payload])

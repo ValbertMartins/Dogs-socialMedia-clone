@@ -3,6 +3,7 @@ import styles from "../../css/Modal.module.css"
 import { ModalContext } from '../../context/ModalState'
 import Coment from "./Coment"
 import useFetch from '../../hooks/useFetch'
+import Bone from "../svg/Bone"
 const Modal = ({setActiveModal}) => {
 
   const { idModal } = React.useContext(ModalContext)
@@ -22,6 +23,9 @@ const Modal = ({setActiveModal}) => {
     cache: "no-store"
   })
 
+
+
+
   React.useEffect(() => {
     if(payload){
       setPhoto(payload.photo)
@@ -40,7 +44,7 @@ const Modal = ({setActiveModal}) => {
       onClick={closeModal}>
         
     {
-      isLoading ? <div>Loading</div> :  
+      isLoading ? <Bone/> :  
 
       <div className={styles.modalContent}>
         <div className={styles.imagePostContainer}>
