@@ -2,7 +2,7 @@
 import React from 'react'
 
 
-const useFetch = (url,options) => {
+const useFetch = (url,options, updateFetching) => {
   const [ response , setResponse ] = React.useState(null)
   const [ payload , setPayload ] = React.useState(null) 
   const [ error , setError ] = React.useState(false)
@@ -14,7 +14,7 @@ const useFetch = (url,options) => {
       try { 
         const response = await fetch(url, options)
         const data = await response.json()
-        console.log("created new req")
+        console.log("new req")
         setResponse(response)
         setPayload(data)
         
@@ -28,7 +28,7 @@ const useFetch = (url,options) => {
 
     
     })()
-  }, [url])
+  }, [url,updateFetching])
   
   return { payload , isLoading , error , response , setIsLoading}
 }

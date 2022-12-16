@@ -1,7 +1,7 @@
 import  React from "react";
-export const GlobalState = React.createContext()
+export const Auth = React.createContext()
 
-export const GlobalStateStore = (props) => {
+export const AuthProvider = (props) => {
 
   
   const [ userAuth , setUserAuth ] = React.useState(null)
@@ -86,7 +86,7 @@ export const GlobalStateStore = (props) => {
 
   return (
 
-    <GlobalState.Provider value={{ 
+    <Auth.Provider value={{ 
       userAuth , 
       setUserAuth , 
       fetchApi, 
@@ -97,6 +97,6 @@ export const GlobalStateStore = (props) => {
     }
       }>
         {props.children}
-    </GlobalState.Provider>
+    </Auth.Provider>
   )
 }

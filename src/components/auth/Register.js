@@ -1,6 +1,6 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import { GlobalState } from '../../context/GlobalState'
+import { Auth } from '../../context/Auth'
 import styles from "../../css/Auth.module.css"
 import Input from "./Input"
 
@@ -15,7 +15,7 @@ const Register = () => {
    const [ password , setPassword ] = React.useState('')
    const [ errorSubmit , setErrorSubmit ] = React.useState(false)
    
-   const { fetchApi , setLocalToken } = React.useContext(GlobalState) 
+   const { fetchApi , setLocalToken } = React.useContext(Auth) 
    const navigate = useNavigate()
 
    const handleSubmit = (event) => {

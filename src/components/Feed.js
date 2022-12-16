@@ -18,7 +18,6 @@ const Feed = () => {
   const { payload, isLoading  } = 
     useFetch(`https://dogsapi.origamid.dev/json/api/photo/?_total=6&_page=${currentPage}&user=0`)
 
-  console.log(isLoading)
   React.useEffect(() => {
     if(payload){
       

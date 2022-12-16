@@ -2,10 +2,10 @@ import React from 'react'
 import styles from "../css/Header.module.css"
 import { Link } from "react-router-dom"
 import DogLogo from './svg/DogLogo'
-import { GlobalState } from '../context/GlobalState'
+import { Auth } from '../context/Auth'
 const Header = () => {
 
-  const { userAuth } = React.useContext(GlobalState)
+  const { userAuth } = React.useContext(Auth)
 
   
   return (

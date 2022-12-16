@@ -10,7 +10,8 @@ const Modal = ({setActiveModal}) => {
   const { idModal } = React.useContext(ModalContext)
   const [ photo , setPhoto ] = React.useState({})
   const [ isLoading , setIsLoading ] = React.useState(true)
-
+  const [ commentList , setCommentList ] = React.useState([])
+  const [ updateUseFetch , setUpdateUseFetch ] = React.useState(false)
 
 
   const closeModal = (event) => {
@@ -19,7 +20,7 @@ const Modal = ({setActiveModal}) => {
         setActiveModal(false)
       }
   }
-  
+  //fetch to modal infos
   const { payload } = useFetch(`https://dogsapi.origamid.dev/json/api/photo/${idModal}`, {
     cache: "no-store"
   })
@@ -32,6 +33,20 @@ const Modal = ({setActiveModal}) => {
     
   }, [payload])
   
+  
+  //request the comments
+
+  const { payload:comments } = useFetch(`https://dogsapi.origamid.dev/json/api/comment/${idModal}`, {
+    cache: "no-store"
+  }, updateUseFetch)
+  
+  
+  React.useEffect(() => {
+    setCommentList(comments?.reverse())
+  } , [comments])
+
+
+
   return (
     <section 
       className={styles.modalContainer}
@@ -59,7 +74,10 @@ const Modal = ({setActiveModal}) => {
             <span>{photo.idade} anos </span>
           </div>
 
-          <ComentModal idModal={idModal}/>
+          <ComentModal idModal={idModal} setCommentlist={setCommentList} commentList={commentList} 
+            setUpdateUseFetch={setUpdateUseFetch}
+            updateUseFetch={updateUseFetch}
+          />
         </div>
       </div>  
     }

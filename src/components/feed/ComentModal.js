@@ -1,5 +1,5 @@
 import React from 'react'
-import { GlobalState } from '../../context/GlobalState'
+import { Auth } from '../../context/Auth'
 import styles from "../../css/Modal.module.css"
 import SendComent from '../svg/SendComent'
 
@@ -7,27 +7,27 @@ import SendComent from '../svg/SendComent'
 
 
 
-const Coment = ({idModal}) => {
+const Coment = ({idModal,commentList , setUpdateUseFetch}) => {
   
-  const { userAuth , localToken } = React.useContext(GlobalState)
-  const [ commentList , setCommentList ] = React.useState([])
+  const { userAuth , localToken } = React.useContext(Auth)
+  //const [ commentList , setCommentList ] = React.useState([])
   const [ comment , setComment ] = React.useState('')
-  const { fetchApi } = React.useContext(GlobalState)
-  const [ auxState , setAuxState ] = React.useState(false)
+  const { fetchApi } = React.useContext(Auth)
+  
   //pull the api comments
   //const { payload } = useFetch(`https://dogsapi.origamid.dev/json/api/comment/${idModalState}`)
 
-  console.log(commentList)
 
-  React.useEffect(() => {
-    ( async () => {
-      const [ payload , response ] = await fetchApi(`https://dogsapi.origamid.dev/json/api/comment/${idModal}`, {
-        cache: "no-store"
-      })
-      console.log(response)
-      setCommentList(payload?.reverse())
-    })()  
-  } , [auxState,fetchApi,idModal])
+
+  // React.useEffect(() => {
+  //   ( async () => {
+  //     const [ payload , response ] = await fetchApi(`https://dogsapi.origamid.dev/json/api/comment/${idModal}`, {
+  //       cache: "no-store"
+  //     })
+  //     console.log(response)
+  //     setCommentList(payload?.reverse())
+  //   })()  
+  // } , [auxState,fetchApi,idModal])
 
  
   
@@ -49,7 +49,8 @@ const Coment = ({idModal}) => {
               })
             })
           setComment("")
-          setAuxState(!auxState)
+          
+          setUpdateUseFetch( auxPrev => !auxPrev)
           
     })()  
   }

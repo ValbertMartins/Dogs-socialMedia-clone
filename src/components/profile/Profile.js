@@ -7,7 +7,7 @@ import CreateIcon from '../svg/CreateIcon'
 import LeaveIcon from '../svg/LeaveIcon'
 import Statistics from './Components/Statistics'
 import Create from "./Components/Create"
-import { GlobalState } from '../../context/GlobalState'
+import { Auth } from '../../context/Auth'
 import MyPosts from './Components/MyPosts'
 
 const Profile = () => {
@@ -20,7 +20,7 @@ const Profile = () => {
     localToken , 
     setLocalToken, 
     setValidatedToken
-  } = React.useContext(GlobalState)
+  } = React.useContext(Auth)
   
   const [ profileActiveIcon , setProfileActiveIcon] = React.useState(true)
   const navigate = useNavigate()

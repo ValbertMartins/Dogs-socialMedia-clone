@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { GlobalState } from '../../context/GlobalState'
+import { Auth } from '../../context/Auth'
 import styles from "../../css/Auth.module.css"
 import Input from './Input'
 
@@ -9,7 +9,7 @@ const Login = () => {
   const [ password , setPassword ] = React.useState('')
   const [ isLoading , setIsLoading ] = React.useState(false)
   const [ errorLogin , setErrorLogin ] = React.useState(false)
-  const { fetchApi , setLocalToken ,  userAuth } = React.useContext(GlobalState)  
+  const { fetchApi , setLocalToken ,  userAuth } = React.useContext(Auth)  
 
   const navigate = useNavigate()
    
