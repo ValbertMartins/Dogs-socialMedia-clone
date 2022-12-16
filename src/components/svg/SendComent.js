@@ -1,11 +1,13 @@
 import React from 'react'
-
+import styles from "../../css/Modal.module.css"
 const SendComent = () => {
   return (
     <svg width="43" 
         height="31" 
         viewBox="0 0 43 31" 
-        fill="none">
+        fill="#333"
+        className={styles.comentSendSvg}>
+        
       <path 
         fillRule="evenodd" 
         clipRule="evenodd" 

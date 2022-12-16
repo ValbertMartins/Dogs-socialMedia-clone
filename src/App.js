@@ -8,7 +8,8 @@ import Login from "./components/auth/Login"
 import { GlobalStateStore } from "./context/GlobalState";
 import Register from "./components/auth/Register";
 import Profile from "./components/profile/Profile";
-import Modal from "./components/feed/Modal";
+import PostDetails from "./components/feed/PostDetails";
+
 
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
             <Route path="login/" element={<Login/>}/>
             <Route path="login/register" element={<Register/>}/>
             <Route path="profile/*" element={<Profile/>}/>
+            <Route path="photo/*" element={<PostDetails/>}/>
           </Routes>
           <Footer/>
       </BrowserRouter>

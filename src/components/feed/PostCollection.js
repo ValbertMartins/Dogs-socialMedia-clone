@@ -1,7 +1,6 @@
 import React from 'react'
 import styles from '../../css/PostCollection.module.css' 
 import { Link } from "react-router-dom"
-import  Modal  from './Modal'
 import { ModalContext } from '../../context/ModalState'
 
 
@@ -25,7 +24,7 @@ const PostCollection = ({collectionPosts , setActiveModal}) => {
                 key={post.id} 
                 className={styles.post} 
                 onClick={openModal}>
-                <img src={post.src} id={post.id}/>
+                <img src={post.src} id={post.id} alt={post.id}/>
               </Link>
             )
           })

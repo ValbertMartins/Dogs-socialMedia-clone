@@ -1,9 +1,10 @@
 import React from 'react'
 import styles from "../../css/Modal.module.css"
 import { ModalContext } from '../../context/ModalState'
-import Coment from "./Coment"
+import ComentModal from "./ComentModal"
 import useFetch from '../../hooks/useFetch'
 import Bone from "../svg/Bone"
+import { Link } from "react-router-dom"
 const Modal = ({setActiveModal}) => {
 
   const { idModal } = React.useContext(ModalContext)
@@ -12,19 +13,16 @@ const Modal = ({setActiveModal}) => {
 
 
 
-  const closeModal = ({target}) => {
-      if(target.className.includes('modalContainer')){
+  const closeModal = (event) => {
+    
+      if(event.target.className.includes('modalContainer')){
         setActiveModal(false)
       }
   }
   
-  
   const { payload } = useFetch(`https://dogsapi.origamid.dev/json/api/photo/${idModal}`, {
     cache: "no-store"
   })
-
-
-
 
   React.useEffect(() => {
     if(payload){
@@ -34,10 +32,6 @@ const Modal = ({setActiveModal}) => {
     
   }, [payload])
   
-
-
-  
-
   return (
     <section 
       className={styles.modalContainer}
@@ -57,12 +51,15 @@ const Modal = ({setActiveModal}) => {
           </div>
 
           <div className={styles.infoContainer}>
-            <h1 className={styles.dogName}>{photo.title}</h1>
+
+            <Link to={`photo/${photo.id}`}>
+              <h1 className={styles.dogName}>{photo.title}</h1>
+            </Link>
             <span>{photo.peso} kg</span>
             <span>{photo.idade} anos </span>
           </div>
 
-          <Coment idModal={idModal}/>
+          <ComentModal idModal={idModal}/>
         </div>
       </div>  
     }

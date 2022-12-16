@@ -59,6 +59,7 @@
   position: relative;
   line-height: 3rem;
   margin: 1.5rem 0.5rem;
+  color: black;
   
 }
 
@@ -148,12 +149,26 @@
 
 .comments { 
   margin: 1rem 0rem;
+  overflow-y: scroll;
+  max-height: 280px;
+  cursor: pointer;
+  max-width: 250px;
 
+}
+
+.comments::-webkit-scrollbar {
+  display: none;
 }
 
 .comments p {
   margin: 0.5rem 0rem;
+  word-wrap: break-word;
 }
+
+.comentSendSvg:hover path{ 
+  fill: #fb1;
+} 
+
 
 @keyframes scaleAnimation {
   from {

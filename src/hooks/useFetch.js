@@ -14,8 +14,10 @@ const useFetch = (url,options) => {
       try { 
         const response = await fetch(url, options)
         const data = await response.json()
+        console.log("created new req")
         setResponse(response)
         setPayload(data)
+        
 
       } catch(erro){ 
         setError(erro)
