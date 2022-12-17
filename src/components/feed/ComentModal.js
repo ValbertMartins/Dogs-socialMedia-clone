@@ -10,26 +10,8 @@ import SendComent from '../svg/SendComent'
 const Coment = ({idModal,commentList , setUpdateUseFetch}) => {
   
   const { userAuth , localToken } = React.useContext(Auth)
-  //const [ commentList , setCommentList ] = React.useState([])
   const [ comment , setComment ] = React.useState('')
   const { fetchApi } = React.useContext(Auth)
-  
-  //pull the api comments
-  //const { payload } = useFetch(`https://dogsapi.origamid.dev/json/api/comment/${idModalState}`)
-
-
-
-  // React.useEffect(() => {
-  //   ( async () => {
-  //     const [ payload , response ] = await fetchApi(`https://dogsapi.origamid.dev/json/api/comment/${idModal}`, {
-  //       cache: "no-store"
-  //     })
-  //     console.log(response)
-  //     setCommentList(payload?.reverse())
-  //   })()  
-  // } , [auxState,fetchApi,idModal])
-
- 
   
 
 

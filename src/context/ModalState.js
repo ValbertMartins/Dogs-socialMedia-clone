@@ -5,8 +5,7 @@ export const ModalContext = React.createContext()
 export const ModalProvider = ({children}) => {
 
 
-  const [ idModal , setIdModal ] = React.useState(10)
-
+  const [ idModal , setIdModal ] = React.useState(null)
   return (
   
     <ModalContext.Provider value={{idModal,setIdModal}}>

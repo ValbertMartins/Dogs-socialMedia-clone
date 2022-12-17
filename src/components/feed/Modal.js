@@ -13,13 +13,15 @@ const Modal = ({setActiveModal}) => {
   const [ commentList , setCommentList ] = React.useState([])
   const [ updateUseFetch , setUpdateUseFetch ] = React.useState(false)
 
-
+  console.log(idModal, Math.random())
   const closeModal = (event) => {
     
-      if(event.target.className.includes('modalContainer')){
-        setActiveModal(false)
-      }
+    if(event.target.className.includes('modalContainer')){
+      setActiveModal(false)
+    }
   }
+
+
   //fetch to modal infos
   const { payload } = useFetch(`https://dogsapi.origamid.dev/json/api/photo/${idModal}`, {
     cache: "no-store"
@@ -42,7 +44,7 @@ const Modal = ({setActiveModal}) => {
   
   
   React.useEffect(() => {
-    setCommentList(comments?.reverse())
+    setCommentList(comments)
   } , [comments])
 
 

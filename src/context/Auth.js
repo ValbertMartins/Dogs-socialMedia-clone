@@ -56,7 +56,6 @@ export const AuthProvider = (props) => {
               authorization: `Bearer ${localToken}`
             }
           })      
-          console.log(payload)
           setUserAuth(payload)
         })()
     }

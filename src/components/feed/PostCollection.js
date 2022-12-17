@@ -7,12 +7,23 @@ import { ModalContext } from '../../context/ModalState'
 const PostCollection = ({collectionPosts , setActiveModal}) => {
     
 
+
+
   const { setIdModal } = React.useContext(ModalContext)
-  
-  const openModal = ({target}) => {
-    setIdModal(target.id)
+  const [ postId , setPostId ] = React.useState(null)
+
+
+
+  const openModal = () => {
+    setIdModal(postId)
     setActiveModal(true)
   }
+  
+  const handleShowViews = (event) => {
+    setPostId(Number(event.target.id))
+  }
+  
+  const handleHideViews = () => setPostId(null)
 
 
   return(
@@ -20,11 +31,26 @@ const PostCollection = ({collectionPosts , setActiveModal}) => {
           {
           collectionPosts.map((post) => {
             return (
-              <Link
-                key={post.id} 
-                className={styles.post} 
-                onClick={openModal}>
-                <img src={post.src} id={post.id} alt={post.id}/>
+              <Link 
+              onMouseEnter={handleShowViews}
+              onMouseLeave={handleHideViews}
+              onClick={openModal}
+              key={post.id} 
+              id={post.id}
+              className={styles.post}>
+                  <img src={post.src} 
+                    id={post.id} 
+                    alt={post.title}/>
+
+                  {
+                    postId === post.id &&
+                      <div className={styles.viewsContainer}>
+                        <p className={styles.views}>
+                          {post.acessos}
+                        </p>
+                      </div>
+                  } 
+                
               </Link>
             )
           })
