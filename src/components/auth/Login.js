@@ -31,26 +31,23 @@ const Login = () => {
 
   }
 
-  const handleSubmit = ( event => {
+  const handleSubmit = async ( event ) => {
     event.preventDefault()
    
     if(password && user){
       setIsLoading(true)
-      setErrorLogin(false);
+      setErrorLogin(false)
 
-      ( async () => {
-       
-        const [ payload , response] = await fetchApi(`https://dogsapi.origamid.dev/json/jwt-auth/v1/token`, options)
-
-        if(!response.ok) {
-          setIsLoading(false)
-          return setErrorLogin(true)
-        } 
-        
-        setLocalToken(payload.token)
-      })() 
+      const [ payload , response] = await fetchApi(`https://dogsapi.origamid.dev/json/jwt-auth/v1/token`, options)
+      if(!response.ok) {
+        setIsLoading(false)
+        return setErrorLogin(true)
+      } 
+      
+      setLocalToken(payload.token)
+     
     } 
-  })
+  }
 
  
 
@@ -70,8 +67,9 @@ const Login = () => {
             style={ isLoading ? {
               cursor: "wait",
               backgroundColor: "#fea"
+            } : 
+              { cursor:"pointer"}}> 
 
-            } : { cursor:"pointer"}}> 
             {isLoading ? "Carregando": "Entrar"} 
           </button>
         </form>

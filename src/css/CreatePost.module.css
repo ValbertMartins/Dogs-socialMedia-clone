@@ -1,0 +1,22 @@
+.createPostContainer {
+  margin: 1rem 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+}
+
+.createPostInputContainer { 
+  max-width: 350px;
+}
+.pictureContainer { 
+  max-width: 350px;
+  max-height: 350px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.pictureContainer img {
+  width: 100%;
+  height: 100%;
+}

@@ -9,6 +9,8 @@ import Statistics from './Components/Statistics'
 import Create from "./Components/Create"
 import { Auth } from '../../context/Auth'
 import MyPosts from './Components/MyPosts'
+import { ModalProvider } from '../../context/ModalState'
+import Modal from "../../components/feed/Modal"
 
 const Profile = () => {
 
@@ -43,66 +45,78 @@ const Profile = () => {
   
 
   
+  const [ activeModal, setActiveModal ] = React.useState(false)
+  
   return (
 
-
+  <ModalProvider>
     <section className={styles.containerProfile}>
-      
-      <h1 className={styles.title}>{title}</h1>
 
-      <article className={styles.navigateButtonsContainer}>
+      <div className={styles.dashboardContainer}>
+        <h1 className={styles.title}>{title}</h1>
+        <article className={styles.navigateButtonsContainer}>
 
-        <NavLink to="" 
-          onClick={() => {
-            setProfileActiveIcon(true)
-            setTitle('Minha Conta')
-           
-          }} 
-          className={ (e) => profileActiveIcon ? "active" : "inactive"}>
-          <MyPicturesIcon/>
-        </NavLink>
 
-        <NavLink to="statistics"  
-          onClick={() => {
-          setProfileActiveIcon(false)
-          setTitle('Estatísticas')
+          <NavLink to="" 
+            onClick={() => {
+              setProfileActiveIcon(true)
+              setTitle('Minha Conta')
+            
+            }} 
+            className={ (e) => profileActiveIcon ? "active" : "inactive"}>
+            <MyPicturesIcon/>
+          </NavLink>
+
+          <NavLink to="statistics"  
+            onClick={() => {
+            setProfileActiveIcon(false)
+            setTitle('Estatísticas')
+            }}>
+          
+            
+            <StatisticsIcon/>
+          </NavLink>
+
+          <NavLink 
+            to="create" 
+            onClick={() => setTitle('Poste Sua Foto')}>
+            <CreateIcon/>
+          </NavLink >
+
+          <NavLink to="/login" 
+            onClick={() => {
+            setUserAuth(null)
+            setValidatedToken(false)
+            setLocalToken(localStorage.removeItem('token'))
           }}>
-        
-          
-          <StatisticsIcon/>
-        </NavLink>
+            <LeaveIcon/>
+            
+          </NavLink>
 
-        <NavLink 
-          to="create" 
-          onClick={() => setTitle('Poste sua Foto')}>
-          <CreateIcon/>
-        </NavLink >
-
-        <NavLink to="/login" 
-          onClick={() => {
-          setUserAuth(null)
-          setValidatedToken(false)
-          setLocalToken(localStorage.removeItem('token'))
-        }}>
-          <LeaveIcon/>
-          
-        </NavLink>
-
-      </article>
+        </article>
+      </div>
 
       <Routes>
           <Route 
             path=""
-            element={<MyPosts userId={userAuth?.id} localToken={localToken}/>}
+            element={<MyPosts userId={userAuth?.id} localToken={localToken} 
+              setActiveModal={setActiveModal}/>}
             />
           <Route 
             path='statistics' 
-            element={<Statistics/>}/>
+            element={<Statistics setActiveModal={setActiveModal}/>}/>
           <Route 
             path='create' 
             element={<Create/>}/>
       </Routes>
+
+
+    {
+      activeModal &&              
+        <Modal setActiveModal={setActiveModal}/>
+    }
     </section>
+  </ModalProvider>
   )
 }
 

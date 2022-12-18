@@ -90,7 +90,7 @@ const Feed = () => {
 
   const [ activeModal , setActiveModal ] = React.useState(false)  
   
-
+  
 
   return (
 
@@ -102,10 +102,10 @@ const Feed = () => {
            feed.map( (collectionPosts,index) => {
             return (
               <PostCollection 
-              collectionPosts={collectionPosts}
-              key={index}
-              setActiveModal={setActiveModal}
-              activeModal={activeModal}
+                collectionPosts={collectionPosts}
+                key={index}
+                setActiveModal={setActiveModal}
+                activeModal={activeModal}
               />
               )    
               })}

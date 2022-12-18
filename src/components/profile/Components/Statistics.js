@@ -1,6 +1,7 @@
 import React from 'react'
-import Input from "../../auth/Input"
 const Statistics = () => {
+
+
   return (
     <section>
       

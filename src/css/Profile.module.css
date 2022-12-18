@@ -3,12 +3,12 @@
   max-width: 800px;
   margin: 0 auto;
   padding: 1.3rem;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 100px 1fr;
-  
 }
 
+.dashboardContainer { 
+  display: flex;
+  justify-content: space-between;
+}
 
 .title {
   font-size: 3rem;

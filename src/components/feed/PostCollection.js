@@ -7,12 +7,8 @@ import { ModalContext } from '../../context/ModalState'
 const PostCollection = ({collectionPosts , setActiveModal}) => {
     
 
-
-
-  const { setIdModal } = React.useContext(ModalContext)
+  const { idModal , setIdModal } = React.useContext(ModalContext)
   const [ postId , setPostId ] = React.useState(null)
-
-
 
   const openModal = () => {
     setIdModal(postId)
@@ -22,7 +18,8 @@ const PostCollection = ({collectionPosts , setActiveModal}) => {
   const handleShowViews = (event) => {
     setPostId(Number(event.target.id))
   }
-  
+
+
   const handleHideViews = () => setPostId(null)
 
 
@@ -37,6 +34,7 @@ const PostCollection = ({collectionPosts , setActiveModal}) => {
               onClick={openModal}
               key={post.id} 
               id={post.id}
+              
               className={styles.post}>
                   <img src={post.src} 
                     id={post.id} 

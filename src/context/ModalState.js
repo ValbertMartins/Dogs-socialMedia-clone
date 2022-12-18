@@ -6,6 +6,7 @@ export const ModalProvider = ({children}) => {
 
 
   const [ idModal , setIdModal ] = React.useState(null)
+  console.log(idModal)
   return (
   
     <ModalContext.Provider value={{idModal,setIdModal}}>

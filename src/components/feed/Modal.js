@@ -13,7 +13,7 @@ const Modal = ({setActiveModal}) => {
   const [ commentList , setCommentList ] = React.useState([])
   const [ updateUseFetch , setUpdateUseFetch ] = React.useState(false)
 
-  console.log(idModal, Math.random())
+  
   const closeModal = (event) => {
     
     if(event.target.className.includes('modalContainer')){
@@ -48,6 +48,17 @@ const Modal = ({setActiveModal}) => {
   } , [comments])
 
 
+
+ 
+  if(!photo) {
+    return (
+      <div className={styles.modalContainer}  
+        onClick={closeModal}
+        style={{color: "red"}}>
+          Post não encontrado
+      </div>
+      )
+  }
 
   return (
     <section 
