@@ -55,3 +55,16 @@
     filter: invert(96%) sepia(0%) saturate(6734%) hue-rotate(243deg) brightness(118%) contrast(98%);
     background: url("https://dogs.origamid.dev/static/media/visualizacao-black.957befc3.svg") center  no-repeat;
 }
+
+
+@media (max-width: 640px) {
+    .postsContainer {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .post:nth-child(2){
+        grid-column-start: 2;
+        grid-column-end: 2;
+        grid-row: span 1;
+    }
+}

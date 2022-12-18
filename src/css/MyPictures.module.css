@@ -8,7 +8,7 @@
 }
 
 
-.myPicturesContainer  img:nth-child(2) {
+.myPicturesContainer  a:nth-child(2) {
   grid-column-start: 2;
   grid-column-end: 4;
   grid-row: 2 span;
@@ -18,4 +18,12 @@
 .myPicturesContainer img {
   width: 100%;
   border-radius: 5px;
+}
+
+
+@media (max-width: 640px){
+  .myPicturesContainer {
+    grid-template-columns: 250px 250px;
+  }
+
 }

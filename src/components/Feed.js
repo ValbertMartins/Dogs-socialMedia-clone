@@ -4,6 +4,7 @@ import useFetch from '../hooks/useFetch'
 import Modal from './feed/Modal'
 import PostCollection from './feed/PostCollection'
 import Bone from "./svg/Bone"
+import styles from "../css/Feed.module.css"
 const Feed = () => {
    
 
@@ -96,7 +97,7 @@ const Feed = () => {
 
 
     <ModalProvider>
-      <section className={`feed container`}>
+      <section className={`${styles.feed} container`}>
         { 
           isLoading ? <Bone/> : 
            feed.map( (collectionPosts,index) => {

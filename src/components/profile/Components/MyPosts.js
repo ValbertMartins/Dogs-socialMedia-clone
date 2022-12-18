@@ -8,10 +8,12 @@ const MyPosts = ({userId,localToken,setActiveModal}) => {
   
   const [ myPictures , setMyPictures ] = React.useState([])
   const { setIdModal } = React.useContext(ModalContext)
+  const [ currentPage, setCurrentPage ] = React.useState(1)
+  const [ nextPageExists, setnextPageExists ] = React.useState(true)
 
-
+  //request my pictures
   const { payload , isLoading } = 
-    useFetch(`https://dogsapi.origamid.dev/json/api/photo/?_page=1&_total=6&_user=${userId}`, {
+    useFetch(`https://dogsapi.origamid.dev/json/api/photo/?_page=${currentPage}&_total=6&_user=${userId}`, {
       method: "GET", 
           headers: {
             "Content-type": "application/json", 
@@ -19,32 +21,66 @@ const MyPosts = ({userId,localToken,setActiveModal}) => {
           }
     })
 
-  //request my pictures
+  console.log(myPictures, "foo")
+  console.log(payload)
+  console.log(currentPage)
+  
   React.useEffect(() => {  
-    if(userId){
-      setMyPictures(payload)
-    }
+   if(userId && payload){
+      setMyPictures( oldPictures => [ ...oldPictures, ...payload]) 
+      console.log(payload,"bar")
+      if(payload.length < 6 && payload.length > 0) {
+        setnextPageExists(false)
+      }
+  }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [payload])
-
-
 
   const handleOpenModal = (id) => {
     setActiveModal(true)
     setIdModal(id)
   }
+  //infinite scroll
+  React.useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      
+      entries.forEach(entry => {
+        
+        if(entry.isIntersecting){
+          
+          
+          nextPageExists ? 
+            setCurrentPage( oldValue => oldValue + 1) : 
+              observer.unobserve(document.querySelector("footer"))
+
+        }
+      })
+
+    }, {
+      root:null,
+      threshold: 0.8 
+    })
+
+    observer.observe(document.querySelector("footer"))
+    return () => observer.unobserve(document.querySelector("footer"))
+
+  }, [nextPageExists])
+  
+
+
+
 
   return (
     
-      <section className={styles.myPicturesContainer}>
+      <section >
       {
         isLoading ?
         <Bone/> : 
-          <div className="animationLeft">     
+          <div className={`animationLeft ${styles.myPicturesContainer}`}>     
               {
                 myPictures?.map((picture) => {
                   return(
-                    <Link key={picture.id} 
+                    <Link key={picture.id} className="animationLeft"
                       onClick={() => handleOpenModal(picture.id)}>
                       <img 
                         src={picture.src} 

@@ -7,7 +7,7 @@ import { ModalContext } from '../../context/ModalState'
 const PostCollection = ({collectionPosts , setActiveModal}) => {
     
 
-  const { idModal , setIdModal } = React.useContext(ModalContext)
+  const { setIdModal } = React.useContext(ModalContext)
   const [ postId , setPostId ] = React.useState(null)
 
   const openModal = () => {
