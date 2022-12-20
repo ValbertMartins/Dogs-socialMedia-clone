@@ -9,6 +9,9 @@ import Input from "./Input"
 
 const Register = () => {
 
+   React.useEffect(() => { 
+      document.title = `Register | Dogs`
+    } , [])
 
    const [ user , setUser ] = React.useState('')
    const [ email , setEmail ] = React.useState('')

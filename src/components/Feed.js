@@ -3,11 +3,13 @@ import { ModalProvider } from '../context/ModalState'
 import useFetch from '../hooks/useFetch'
 import Modal from './feed/Modal'
 import PostCollection from './feed/PostCollection'
-import Bone from "./svg/Bone"
 import styles from "../css/Feed.module.css"
+import Loading from './Loading'
 const Feed = () => {
    
-
+  React.useEffect(() => { 
+    document.title = `Home | Dogs`
+  } , [])
 
   const [ feed, setFeed ] = React.useState([])
   const [ currentPage, setCurrentPage ] = React.useState(1)
@@ -16,8 +18,10 @@ const Feed = () => {
 
 
 
-  const { payload, isLoading  } = 
-    useFetch(`https://dogsapi.origamid.dev/json/api/photo/?_total=6&_page=${currentPage}&user=0`)
+  const { payload, isLoading } = 
+    useFetch(`https://dogsapi.origamid.dev/json/api/photo/?_total=6&_page=${currentPage}&user=0`, {
+      cache: "no-store"
+    })
 
   React.useEffect(() => {
     if(payload){
@@ -31,34 +35,6 @@ const Feed = () => {
 
   }, [ payload ])
   
-
-
-  
-  // React.useEffect(() => {
-        
-    
-  //   ( async () => {
-    
-  //     try {
-        
-  //         const response = await fetch(`https://dogsapi.origamid.dev/json/api/photo/?_total=6&_page=${currentPage}&user=0`)
-  //         const json = await response.json()
-          
-  //         json.length === 0 ? setnextPageExists(false) : setFeed( oldFeed => [...oldFeed, json ]) 
-          
-  //         if(json.length < 6) {
-  //           setnextPageExists(false)
-  //       }
-        
-
-  //     }catch(erro){
-
-  //     }
-          
-  //   })()
-
-  // }, [currentPage])
-
 
   React.useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
@@ -91,15 +67,15 @@ const Feed = () => {
 
   const [ activeModal , setActiveModal ] = React.useState(false)  
   
-  
 
   return (
 
 
     <ModalProvider>
       <section className={`${styles.feed} container`}>
+        { isLoading && <Loading/>}  
         { 
-          isLoading ? <Bone/> : 
+         
            feed.map( (collectionPosts,index) => {
             return (
               <PostCollection 
@@ -107,16 +83,19 @@ const Feed = () => {
                 key={index}
                 setActiveModal={setActiveModal}
                 activeModal={activeModal}
+                isLoading={isLoading}
               />
               )    
-              })}
+              })
+        }
   
-          {!nextPageExists && <p className="contentEnd animationLeft">Não existem mais postagens</p>}
+        
+        {!nextPageExists && <p className="contentEnd animationLeft">Não existem mais postagens</p>}
   
-          {
-            activeModal && 
+        {
+          activeModal && 
             <Modal setActiveModal={setActiveModal}/>
-            }        
+        }        
         
         
       </section>

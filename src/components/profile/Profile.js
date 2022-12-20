@@ -1,16 +1,15 @@
 import React from 'react'
 import styles from "../../css/Profile.module.css"
-import { NavLink, Route, Routes, useNavigate } from 'react-router-dom'
-import MyPicturesIcon from '../svg/MyPicturesIcon'
-import StatisticsIcon from '../svg/StatisticsIcon'
-import CreateIcon from '../svg/CreateIcon'
-import LeaveIcon from '../svg/LeaveIcon'
+import {Route, Routes, useNavigate } from 'react-router-dom'
+
 import Statistics from './Components/Statistics'
 import Create from "./Components/Create"
 import { Auth } from '../../context/Auth'
 import MyPosts from './Components/MyPosts'
 import { ModalProvider } from '../../context/ModalState'
 import Modal from "../../components/feed/Modal"
+import NavigateButtons from './Components/NavigateButtons'
+import ButtonMobileNavigate from './Components/ButtonMobileNavigate'
 
 const Profile = () => {
 
@@ -24,7 +23,12 @@ const Profile = () => {
     setValidatedToken
   } = React.useContext(Auth)
   
+  React.useEffect(() => { 
+    document.title = `Profile | Dogs`
+  } , [])
+  
   const [ profileActiveIcon , setProfileActiveIcon] = React.useState(true)
+  const [ activeModal, setActiveModal ] = React.useState(false)
   const navigate = useNavigate()
   
 
@@ -43,9 +47,21 @@ const Profile = () => {
     }
   }, [userAuth,navigate])
   
+  
+  const [ widthWindow , setWidthWindow ] = React.useState(window.innerWidth)
+  React.useEffect(() => {
+    
+    window.addEventListener("resize", () => {
+      setWidthWindow(window.innerWidth)
+
+    })
+    
+    
+  }, [])
+
+
 
   
-  const [ activeModal, setActiveModal ] = React.useState(false)
   
   return (
 
@@ -54,46 +70,30 @@ const Profile = () => {
 
       <div className={styles.dashboardContainer}>
         <h1 className={styles.title}>{title}</h1>
-        <article className={styles.navigateButtonsContainer}>
 
-
-          <NavLink to="" 
-            onClick={() => {
-              setProfileActiveIcon(true)
-              setTitle('Minha Conta')
+      {
+        widthWindow < 640 ? 
+          <ButtonMobileNavigate
+            setProfileActiveIcon={setProfileActiveIcon}
+            setTitle={setTitle}
+            setUserAuth={setUserAuth}
+            setValidatedToken={setValidatedToken}
+            setLocalToken={setLocalToken}
+            profileActiveIcon={profileActiveIcon}
             
-            }} 
-            className={ (e) => profileActiveIcon ? "active" : "inactive"}>
-            <MyPicturesIcon/>
-          </NavLink>
+          /> : 
+          <article className={styles.navigateButtonsContainer}>
+            <NavigateButtons 
+              setProfileActiveIcon={setProfileActiveIcon}
+              setTitle={setTitle}
+              setUserAuth={setUserAuth}
+              setValidatedToken={setValidatedToken}
+              setLocalToken={setLocalToken}
+              profileActiveIcon={profileActiveIcon}
+              />
+          </article>
 
-          <NavLink to="statistics"  
-            onClick={() => {
-            setProfileActiveIcon(false)
-            setTitle('Estatísticas')
-            }}>
-          
-            
-            <StatisticsIcon/>
-          </NavLink>
-
-          <NavLink 
-            to="create" 
-            onClick={() => setTitle('Poste Sua Foto')}>
-            <CreateIcon/>
-          </NavLink >
-
-          <NavLink to="/login" 
-            onClick={() => {
-            setUserAuth(null)
-            setValidatedToken(false)
-            setLocalToken(localStorage.removeItem('token'))
-          }}>
-            <LeaveIcon/>
-            
-          </NavLink>
-
-        </article>
+      }        
       </div>
 
       <Routes>

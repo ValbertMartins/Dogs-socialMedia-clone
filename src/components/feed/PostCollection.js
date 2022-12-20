@@ -2,9 +2,10 @@ import React from 'react'
 import styles from '../../css/PostCollection.module.css' 
 import { Link } from "react-router-dom"
 import { ModalContext } from '../../context/ModalState'
+import Loading from '../Loading'
 
 
-const PostCollection = ({collectionPosts , setActiveModal}) => {
+const PostCollection = ({collectionPosts , setActiveModal , isLoading}) => {
     
 
   const { setIdModal } = React.useContext(ModalContext)
@@ -25,6 +26,7 @@ const PostCollection = ({collectionPosts , setActiveModal}) => {
 
   return(
       <section className={`${styles.postsContainer} animationLeft`} >
+          
           {
           collectionPosts.map((post) => {
             return (

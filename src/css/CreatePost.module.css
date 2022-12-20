@@ -20,3 +20,19 @@
   width: 100%;
   height: 100%;
 }
+
+@media(max-width: 800px) {
+  .pictureContainer {
+    max-width: 300px;
+    max-height: 300px;
+  }
+}
+
+
+@media(max-width: 720px) { 
+  .createPostContainer {
+    flex-direction: column;
+    
+  
+  }
+}

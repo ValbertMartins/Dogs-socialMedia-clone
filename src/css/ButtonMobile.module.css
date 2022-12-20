@@ -1,0 +1,87 @@
+
+.btnMobileContainer { 
+  position: relative;
+  padding-top: 0.5rem;
+}
+
+.buttonMobile { 
+  height: 40px;
+  width: 40px;
+  cursor: pointer;
+  background-color: #eee;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.3s;
+  border-radius: 2px;
+  margin-bottom: 0.5rem;  
+}
+
+
+.buttonMobile:hover { 
+  border: 1px solid #fb1;
+  box-shadow: 0 0 0 3px #fea;
+  fill: #fb1;
+}
+
+
+.hamburguer { 
+  transition: 0.3s;
+  display: block;
+  width: 20px;
+  border-radius: 1px;
+
+  
+
+}
+
+
+.hamburguerAnimated { 
+  width: 2px;
+  transform: rotate(90deg);
+}
+
+
+.hamburguer::after { 
+  content: "";
+  display: block;
+  height: 2px;
+  background-color: black;
+  border-radius: 1px;
+  box-shadow: 0 6px currentColor,0 -6px currentColor;
+ 
+}
+
+
+.navigateLinks { 
+  position: absolute;
+  width: 170px;
+  transform: translateX(-160px);
+  animation: animationSubMenuBtnMobile 0.2s ease forwards;
+  border-radius: 5px;
+  border: 1px solid #eee;
+  z-index: 1000;
+  background-color: #fff;
+
+
+}
+.navigateLinks a {
+  
+  display: flex;
+  align-items: center;
+  color: black;
+  height: 40px;
+  border-bottom: 1px solid #eee;
+}
+
+.navigateLinks svg { 
+  margin: 0 0.2rem; 
+ 
+}
+
+
+@keyframes animationSubMenuBtnMobile {
+  to { 
+    transform: translateX(-130px);
+  }
+}

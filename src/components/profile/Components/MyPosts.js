@@ -1,11 +1,15 @@
 import React from 'react'
 import styles from "../../../css/MyPictures.module.css"
 import useFetch from '../../../hooks/useFetch'
-import Bone from "../../svg/Bone"
 import { Link } from "react-router-dom"
 import { ModalContext } from '../../../context/ModalState'
+import Loading from '../../Loading'
 const MyPosts = ({userId,localToken,setActiveModal}) => {
   
+  React.useEffect(() => { 
+    document.title = `MyPosts | Dogs`
+  } , [])
+
   const [ myPictures , setMyPictures ] = React.useState([])
   const { setIdModal } = React.useContext(ModalContext)
   const [ currentPage, setCurrentPage ] = React.useState(1)
@@ -21,14 +25,10 @@ const MyPosts = ({userId,localToken,setActiveModal}) => {
           }
     })
 
-  console.log(myPictures, "foo")
-  console.log(payload)
-  console.log(currentPage)
   
   React.useEffect(() => {  
    if(userId && payload){
       setMyPictures( oldPictures => [ ...oldPictures, ...payload]) 
-      console.log(payload,"bar")
       if(payload.length < 6 && payload.length > 0) {
         setnextPageExists(false)
       }
@@ -40,19 +40,17 @@ const MyPosts = ({userId,localToken,setActiveModal}) => {
     setActiveModal(true)
     setIdModal(id)
   }
+
   //infinite scroll
   React.useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
       
       entries.forEach(entry => {
-        
-        if(entry.isIntersecting){
-          
-          
+      
+        if(entry.isIntersecting){ 
           nextPageExists ? 
             setCurrentPage( oldValue => oldValue + 1) : 
               observer.unobserve(document.querySelector("footer"))
-
         }
       })
 
@@ -72,10 +70,9 @@ const MyPosts = ({userId,localToken,setActiveModal}) => {
 
   return (
     
-      <section >
-      {
-        isLoading ?
-        <Bone/> : 
+      <section>
+        {isLoading && <Loading/>}
+        {
           <div className={`animationLeft ${styles.myPicturesContainer}`}>     
               {
                 myPictures?.map((picture) => {

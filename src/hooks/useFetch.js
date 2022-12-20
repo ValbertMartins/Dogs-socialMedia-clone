@@ -8,10 +8,13 @@ const useFetch = (url,options, updateFetching) => {
   const [ error , setError ] = React.useState(false)
   const [ isLoading , setIsLoading ] = React.useState(true) 
 
+  console.log(isLoading, "foo")
 
   React.useEffect(() => {
+    setIsLoading(true);
     ( async () =>  {
       try { 
+        
         const response = await fetch(url, options)
         const data = await response.json()
         setResponse(response)
@@ -21,8 +24,9 @@ const useFetch = (url,options, updateFetching) => {
       } catch(erro){ 
         setError(erro)
 
-      } finally { 
-          setIsLoading(false)
+      } finally {
+            setIsLoading(false)
+   
       }
 
     

@@ -19,13 +19,6 @@
 
 
 
-.feed {
-    min-height: 100vh;
-    position: relative;
-    
-   
-    
-}
 
 .animationLeft {
     opacity: 0;
@@ -113,7 +106,13 @@
     fill: #fb1;
 }
     
-
+@media(max-width: 640px ){
+    .active { 
+        border: none;
+        box-shadow: none;
+        fill: #fb1;
+      }
+}
 
 
 @keyframes animationDefault {

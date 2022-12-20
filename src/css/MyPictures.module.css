@@ -23,7 +23,14 @@
 
 @media (max-width: 640px){
   .myPicturesContainer {
-    grid-template-columns: 250px 250px;
+    grid-template-columns: 1fr 1fr;
   }
+
+  .myPicturesContainer  a:nth-child(2) { 
+    grid-column-end: 3;
+    grid-row: 1 span;
+  }
+
+
 
 }

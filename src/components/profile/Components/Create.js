@@ -16,9 +16,9 @@ const Create = () => {
   const { fetchApi , localToken } = React.useContext(Auth) 
   
 
-  React.useEffect(() => {
-   
-  } , [picture])
+  React.useEffect(() => { 
+    document.title = `Create | Dogs`
+  } , [])
 
   
   

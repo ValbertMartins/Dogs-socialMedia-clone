@@ -12,6 +12,10 @@ const Login = () => {
   const { fetchApi , setLocalToken ,  userAuth } = React.useContext(Auth)  
 
   const navigate = useNavigate()
+
+  React.useEffect(() => { 
+    document.title = `Login | Dogs`
+  } , [])
    
   React.useEffect(() => {
 
