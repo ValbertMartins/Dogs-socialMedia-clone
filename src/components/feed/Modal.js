@@ -4,7 +4,6 @@ import { ModalContext } from '../../context/ModalState'
 import ComentModal from "./ComentModal"
 import useFetch from '../../hooks/useFetch'
 import Bone from "../svg/Bone"
-import { Link } from "react-router-dom"
 const Modal = ({setActiveModal}) => {
 
   const { idModal } = React.useContext(ModalContext)
@@ -79,15 +78,15 @@ const Modal = ({setActiveModal}) => {
           </div>
 
           <div className={styles.infoContainer}>
-
-            <Link to={`photo/${photo.id}`}>
-              <h1 className={styles.dogName}>{photo.title}</h1>
-            </Link>
+            <h1 className={styles.dogName}>{photo.title}</h1>
             <span>{photo.peso} kg</span>
             <span>{photo.idade} anos </span>
           </div>
 
-          <ComentModal idModal={idModal} setCommentlist={setCommentList} commentList={commentList} 
+          <ComentModal 
+            idModal={idModal} 
+            setCommentlist={setCommentList} 
+            commentList={commentList} 
             setUpdateUseFetch={setUpdateUseFetch}
             updateUseFetch={updateUseFetch}
           />

@@ -24,9 +24,11 @@ const ButtonMobileNavigate = ({setProfileActiveIcon,
 
     <section className={styles.btnMobileContainer}>
 
-      <div className={styles.buttonMobile} onClick={handleButtonMobile}>
-        <span className={ `${styles.hamburguer} ${activeButtonMobile && styles.hamburguerAnimated}`} >
-            
+      <div 
+        className={`${styles.buttonMobile} ${activeButtonMobile && styles.buttonMobileActive}`} 
+        onClick={handleButtonMobile}>
+
+        <span className={ `${styles.hamburguer} ${activeButtonMobile && styles.hamburguerAnimated}`}> 
         </span>
       </div>
 

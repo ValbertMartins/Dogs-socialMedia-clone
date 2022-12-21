@@ -67,29 +67,36 @@ const Profile = () => {
 
   <ModalProvider>
     <section className={styles.containerProfile}>
-
       <div className={styles.dashboardContainer}>
         <h1 className={styles.title}>{title}</h1>
 
       {
         widthWindow < 640 ? 
           <ButtonMobileNavigate
-            setProfileActiveIcon={setProfileActiveIcon}
-            setTitle={setTitle}
-            setUserAuth={setUserAuth}
-            setValidatedToken={setValidatedToken}
-            setLocalToken={setLocalToken}
-            profileActiveIcon={profileActiveIcon}
+            {...{setProfileActiveIcon,
+              setTitle,   
+              setUserAuth , 
+              setValidatedToken, 
+              setLocalToken,
+              profileActiveIcon
+            }}
+            // setProfileActiveIcon={setProfileActiveIcon}
+            // setTitle={setTitle}
+            // setUserAuth={setUserAuth}
+            // setValidatedToken={setValidatedToken}
+            // setLocalToken={setLocalToken}
+            // profileActiveIcon={profileActiveIcon}
             
           /> : 
           <article className={styles.navigateButtonsContainer}>
             <NavigateButtons 
-              setProfileActiveIcon={setProfileActiveIcon}
-              setTitle={setTitle}
-              setUserAuth={setUserAuth}
-              setValidatedToken={setValidatedToken}
-              setLocalToken={setLocalToken}
-              profileActiveIcon={profileActiveIcon}
+              {...{setProfileActiveIcon,
+                setTitle,   
+                setUserAuth , 
+                setValidatedToken, 
+                setLocalToken,
+                profileActiveIcon
+              }}
               />
           </article>
 

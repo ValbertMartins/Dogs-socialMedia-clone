@@ -81,7 +81,7 @@ const Login = () => {
           {errorLogin && <p style={{color: "red"}}> Dados incorretos </p> } 
 
         <div>
-          <Link>
+          <Link to="./lostpassword">
               <span className={styles.passwordLostLink}>Perdeu a senha?</span>
           </Link> 
         </div>

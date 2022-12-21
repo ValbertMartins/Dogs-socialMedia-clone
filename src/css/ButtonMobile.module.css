@@ -12,16 +12,23 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: 0.3s;
+  
   border-radius: 2px;
   margin-bottom: 0.5rem;  
+}
+
+
+.buttonMobileActive { 
+  box-shadow: 0 0 0 3px #fea;
+  color: #fb1;
 }
 
 
 .buttonMobile:hover { 
   border: 1px solid #fb1;
   box-shadow: 0 0 0 3px #fea;
-  fill: #fb1;
+  color: #fb1;
+  
 }
 
 
@@ -42,11 +49,12 @@
 }
 
 
+
 .hamburguer::after { 
   content: "";
   display: block;
   height: 2px;
-  background-color: black;
+  background-color: currentColor;
   border-radius: 1px;
   box-shadow: 0 6px currentColor,0 -6px currentColor;
  

@@ -1,17 +1,9 @@
 import React from 'react'
 import Bone from './svg/Bone'
-
+import styles from "../css/Loading.module.css"
 const Loading = () => {
   return (
-    <section style={{
-      position: "fixed",
-      width: "800px",
-      height: "70vh",
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-      zIndex: 1000
-    }}>
+    <section className={styles.containerLoading}>
       <Bone/>
     </section>
   )

@@ -1,0 +1,14 @@
+
+.containerLoading { 
+  position: fixed;
+  max-width: 800px;
+  height: 70vh;
+  width: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  
+}
+
+
