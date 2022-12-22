@@ -4,7 +4,8 @@ import useFetch from '../../../hooks/useFetch'
 import { Link } from "react-router-dom"
 import { ModalContext } from '../../../context/ModalState'
 import Loading from '../../Loading'
-const MyPosts = ({userId,localToken,setActiveModal}) => {
+import { Auth } from '../../../context/Auth'
+const MyPosts = ({setActiveModal}) => {
   
   React.useEffect(() => { 
     document.title = `MyPosts | Dogs`
@@ -14,10 +15,11 @@ const MyPosts = ({userId,localToken,setActiveModal}) => {
   const { setIdModal } = React.useContext(ModalContext)
   const [ currentPage, setCurrentPage ] = React.useState(1)
   const [ nextPageExists, setnextPageExists ] = React.useState(true)
+  const { userAuth:user, localToken } = React.useContext(Auth) 
 
   //request my pictures
   const { payload , isLoading } = 
-    useFetch(`https://dogsapi.origamid.dev/json/api/photo/?_page=${currentPage}&_total=6&_user=${userId}`, {
+    useFetch(`https://dogsapi.origamid.dev/json/api/photo/?_page=${currentPage}&_total=6&_user=${user?.id}`, {
       method: "GET", 
           headers: {
             "Content-type": "application/json", 
@@ -27,7 +29,7 @@ const MyPosts = ({userId,localToken,setActiveModal}) => {
 
   
   React.useEffect(() => {  
-   if(userId && payload){
+   if(user?.id && payload){
       setMyPictures( oldPictures => [ ...oldPictures, ...payload]) 
       if(payload.length < 6 && payload.length > 0) {
         setnextPageExists(false)
@@ -64,14 +66,11 @@ const MyPosts = ({userId,localToken,setActiveModal}) => {
 
   }, [nextPageExists])
   
-
-
-
-
   return (
     
       <section>
         {isLoading && <Loading/>}
+
         {
           <div className={`animationLeft ${styles.myPicturesContainer}`}>     
               {
@@ -87,9 +86,6 @@ const MyPosts = ({userId,localToken,setActiveModal}) => {
                   )
                 })
               }
-
-              
-              
           </div>
       }
       </section>

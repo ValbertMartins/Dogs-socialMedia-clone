@@ -1,4 +1,3 @@
-
 import React from 'react'
 
 
@@ -8,18 +7,14 @@ const useFetch = (url,options, updateFetching) => {
   const [ error , setError ] = React.useState(false)
   const [ isLoading , setIsLoading ] = React.useState(true) 
 
-  console.log(isLoading, "foo")
-
   React.useEffect(() => {
     setIsLoading(true);
     ( async () =>  {
-      try { 
-        
+      try {      
         const response = await fetch(url, options)
         const data = await response.json()
         setResponse(response)
         setPayload(data)
-        
 
       } catch(erro){ 
         setError(erro)
@@ -31,6 +26,7 @@ const useFetch = (url,options, updateFetching) => {
 
     
     })()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [url,updateFetching])
   
   return { payload , isLoading , error , response , setIsLoading}

@@ -17,9 +17,6 @@ export const AuthProvider = (props) => {
     }
   }, [localToken])
  
-
-  
-
   //validate localToken
   React.useEffect(() => {
 
@@ -32,12 +29,11 @@ export const AuthProvider = (props) => {
             "Content-type": "application/json", 
             authorization: `Bearer ${localToken}`
           }
-        })      
+        })   
         if(!response.ok) {
           return setUserAuth(false)
         }
         setValidatedToken(true)
-       
       })()
     }
 
@@ -63,11 +59,6 @@ export const AuthProvider = (props) => {
   } , [validatedToken])
 
   
-
- 
-  
-
-
   async function fetchApi(url, options){
     try {
       const response = await fetch(url, options)

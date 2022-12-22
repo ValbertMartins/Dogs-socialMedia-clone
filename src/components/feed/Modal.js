@@ -4,6 +4,7 @@ import { ModalContext } from '../../context/ModalState'
 import ComentModal from "./ComentModal"
 import useFetch from '../../hooks/useFetch'
 import Bone from "../svg/Bone"
+import { Auth } from '../../context/Auth'
 const Modal = ({setActiveModal}) => {
 
   const { idModal } = React.useContext(ModalContext)
@@ -11,15 +12,24 @@ const Modal = ({setActiveModal}) => {
   const [ isLoading , setIsLoading ] = React.useState(true)
   const [ commentList , setCommentList ] = React.useState([])
   const [ updateUseFetch , setUpdateUseFetch ] = React.useState(false)
-
+  const { userAuth , fetchApi ,  localToken } = React.useContext(Auth)
+  const [ activeDeleteButton , setActiveDeleteButton ] = React.useState(false)
   
+  console.log(userAuth.nome, photo.author)
+  console.log(activeDeleteButton)
+
+  React.useEffect(() => {
+    if(photo.author === userAuth.nome){
+      setActiveDeleteButton(true)
+    }
+  } , [photo])
+
+
   const closeModal = (event) => {
-    
     if(event.target.className.includes('modalContainer')){
       setActiveModal(false)
     }
   }
-
 
   //fetch to modal infos
   const { payload } = useFetch(`https://dogsapi.origamid.dev/json/api/photo/${idModal}`, {
@@ -34,9 +44,7 @@ const Modal = ({setActiveModal}) => {
     
   }, [payload])
   
-  
   //request the comments
-
   const { payload:comments } = useFetch(`https://dogsapi.origamid.dev/json/api/comment/${idModal}`, {
     cache: "no-store"
   }, updateUseFetch)
@@ -46,7 +54,16 @@ const Modal = ({setActiveModal}) => {
     setCommentList(comments)
   } , [comments])
 
-
+  
+  const handlerDeletePost = async () => {
+    const [ payload , response ] = await fetchApi(`https://dogsapi.origamid.dev/json/api/photo/${idModal}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${localToken}`
+      }
+    })
+    console.log(payload)
+  }
 
  
   if(!photo) {
@@ -73,7 +90,11 @@ const Modal = ({setActiveModal}) => {
         </div>
         <div className={styles.postContent}>
           <div className={styles.viewsContainer}>
-              <p>@{photo.author}</p>
+              {
+                activeDeleteButton ? 
+                  <button className={styles.buttonDelete} onClick={handlerDeletePost}>deletar</button> : 
+                  <p>@{photo.author}</p>
+              }
               <p className={styles.acessos}>{photo.acessos}</p>
           </div>
 

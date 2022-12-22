@@ -81,11 +81,10 @@ const Login = () => {
           {errorLogin && <p style={{color: "red"}}> Dados incorretos </p> } 
 
         <div>
-          <Link to="./lostpassword">
+          <Link to="lostpassword">
               <span className={styles.passwordLostLink}>Perdeu a senha?</span>
           </Link> 
         </div>
-        
         <div className={styles.registerContainer}>
           <h2 className={styles.subtitle}>
             Cadastre-se
@@ -93,12 +92,10 @@ const Login = () => {
           <p>
               Ainda não tem uma conta? Cadastre-se.
           </p>
-
-          <Link to="./register">
+          <Link to="register">
               <button className="defaultBtn">Cadastro</button>
           </Link>
         </div>
-
       </div>
      
 

@@ -5,48 +5,50 @@ import StatisticsIcon from '../../svg/StatisticsIcon'
 import CreateIcon from '../../svg/CreateIcon'
 import LeaveIcon from '../../svg/LeaveIcon'
 
-const NavigateButtons = ({
-    setProfileActiveIcon, 
+const NavigateButtons = ({ 
     setTitle , 
     setUserAuth, 
     setValidatedToken, 
-    setLocalToken, 
-    profileActiveIcon}
-) => {
+    setLocalToken,
+    fieldsText
+}) => {
+
+  function handlerTitle(title){
+    setTitle(title)
+  }
+
+  function logout(){
+    setUserAuth(null)
+    setValidatedToken(false)
+    setLocalToken(localStorage.removeItem('token'))
+  }
   return (
     <>
        <NavLink to="" 
-            onClick={() => {
-              setProfileActiveIcon(true)
-              setTitle('Minha Conta')   
-            }} 
-            className={ (e) => profileActiveIcon ? "active" : "inactive"}>
-            <MyPicturesIcon/>
-          </NavLink>
+          end
+          onClick={() => handlerTitle("Minha Conta")}>
+          <MyPicturesIcon/>
+          {fieldsText?.myPosts}  
+        </NavLink>
 
-          <NavLink to="statistics"  
-            onClick={() => {
-              setProfileActiveIcon(false)
-              setTitle('Estatísticas')
-            }}>
-            <StatisticsIcon/>
-          </NavLink>
+        <NavLink to="statistics"  
+          onClick={() => handlerTitle("Estatísticas")}>
+          <StatisticsIcon/>
+          {fieldsText?.myPosts}
+        </NavLink>
 
-          <NavLink 
-            to="create" 
-            onClick={() => setTitle('Poste Sua Foto')}>
-            <CreateIcon/>
-          </NavLink >
+        <NavLink 
+          to="create" 
+          onClick={() => handlerTitle('Poste Sua Foto')}>
+          <CreateIcon/>
+          {fieldsText?.myPosts}
+        </NavLink >
 
-          <NavLink to="/login" 
-            onClick={() => {
-              setUserAuth(null)
-              setValidatedToken(false)
-              setLocalToken(localStorage.removeItem('token'))
-          }}>
-            <LeaveIcon/>
-            
-          </NavLink>
+        <NavLink to="/login" 
+          onClick={() => logout()}>
+          <LeaveIcon/>
+          {fieldsText?.myPosts}
+        </NavLink>
     </>
   )
 }

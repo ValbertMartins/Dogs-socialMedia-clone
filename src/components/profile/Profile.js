@@ -27,7 +27,6 @@ const Profile = () => {
     document.title = `Profile | Dogs`
   } , [])
   
-  const [ profileActiveIcon , setProfileActiveIcon] = React.useState(true)
   const [ activeModal, setActiveModal ] = React.useState(false)
   const navigate = useNavigate()
   
@@ -60,70 +59,50 @@ const Profile = () => {
   }, [])
 
 
-
-  
-  
   return (
 
-  <ModalProvider>
-    <section className={styles.containerProfile}>
-      <div className={styles.dashboardContainer}>
-        <h1 className={styles.title}>{title}</h1>
+    <ModalProvider>
+      <section className={styles.containerProfile}>
+        <div className={styles.dashboardContainer}>
+          <h1 className={styles.title}>{title}</h1>
 
-      {
-        widthWindow < 640 ? 
-          <ButtonMobileNavigate
-            {...{setProfileActiveIcon,
-              setTitle,   
-              setUserAuth , 
-              setValidatedToken, 
-              setLocalToken,
-              profileActiveIcon
-            }}
-            // setProfileActiveIcon={setProfileActiveIcon}
-            // setTitle={setTitle}
-            // setUserAuth={setUserAuth}
-            // setValidatedToken={setValidatedToken}
-            // setLocalToken={setLocalToken}
-            // profileActiveIcon={profileActiveIcon}
-            
-          /> : 
-          <article className={styles.navigateButtonsContainer}>
-            <NavigateButtons 
-              {...{setProfileActiveIcon,
+        {
+          widthWindow < 640 ? 
+            <ButtonMobileNavigate
+              {...{
                 setTitle,   
                 setUserAuth , 
                 setValidatedToken, 
                 setLocalToken,
-                profileActiveIcon
               }}
-              />
-          </article>
+              
+            /> : 
+            <article className={styles.navigateButtonsContainer}>
+              <NavigateButtons 
+                {...{
+                  setTitle,   
+                  setUserAuth , 
+                  setValidatedToken, 
+                  setLocalToken,
+                }}
+                />
+            </article>
 
-      }        
-      </div>
+        }        
+        </div>
 
-      <Routes>
-          <Route 
-            path=""
-            element={<MyPosts userId={userAuth?.id} localToken={localToken} 
-              setActiveModal={setActiveModal}/>}
-            />
-          <Route 
-            path='statistics' 
-            element={<Statistics setActiveModal={setActiveModal}/>}/>
-          <Route 
-            path='create' 
-            element={<Create/>}/>
-      </Routes>
+        <Routes>
+          <Route path="" element={<MyPosts setActiveModal={setActiveModal}/>}/> 
+          <Route path='statistics' element={<Statistics/>}/>
+          <Route path='create' element={<Create/>}/>
+        </Routes>
 
-
-    {
-      activeModal &&              
-        <Modal setActiveModal={setActiveModal}/>
-    }
-    </section>
-  </ModalProvider>
+        {
+          activeModal &&              
+            <Modal setActiveModal={setActiveModal}/>
+        }
+      </section>
+    </ModalProvider>
   )
 }
 
