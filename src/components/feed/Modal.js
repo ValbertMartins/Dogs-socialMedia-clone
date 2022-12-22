@@ -14,15 +14,17 @@ const Modal = ({setActiveModal}) => {
   const [ updateUseFetch , setUpdateUseFetch ] = React.useState(false)
   const { userAuth , fetchApi ,  localToken } = React.useContext(Auth)
   const [ activeDeleteButton , setActiveDeleteButton ] = React.useState(false)
+  const [ photoExists , setPhotoExists ] = React.useState(true)
   
-  console.log(userAuth.nome, photo.author)
-  console.log(activeDeleteButton)
+  
 
   React.useEffect(() => {
-    if(photo.author === userAuth.nome){
-      setActiveDeleteButton(true)
+    if(userAuth){
+      if(photo.author === userAuth.nome){
+        setActiveDeleteButton(true)
+      }
     }
-  } , [photo])
+  } , [photo,userAuth])
 
 
   const closeModal = (event) => {
@@ -38,9 +40,10 @@ const Modal = ({setActiveModal}) => {
 
   React.useEffect(() => {
     if(payload){
+      if(payload.data?.status === 404) return setPhotoExists(false)
       setPhoto(payload.photo)
       setIsLoading(false)
-    }
+    } 
     
   }, [payload])
   
@@ -56,17 +59,20 @@ const Modal = ({setActiveModal}) => {
 
   
   const handlerDeletePost = async () => {
-    const [ payload , response ] = await fetchApi(`https://dogsapi.origamid.dev/json/api/photo/${idModal}`, {
-      method: "DELETE",
-      headers: {
-        Authorization: `Bearer ${localToken}`
-      }
-    })
-    console.log(payload)
+    const confirmed = window.confirm("Tem certeza que deseja deletar?")
+    if(confirmed){
+      const [ payload ] = await fetchApi(`https://dogsapi.origamid.dev/json/api/photo/${idModal}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${localToken}`
+        }
+      })
+      console.log(payload)
+    }
   }
 
  
-  if(!photo) {
+  if(!photoExists) {
     return (
       <div className={styles.modalContainer}  
         onClick={closeModal}

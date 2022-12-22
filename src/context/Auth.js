@@ -51,7 +51,7 @@ export const AuthProvider = (props) => {
               "Content-type": "application/json", 
               authorization: `Bearer ${localToken}`
             }
-          })      
+          })         
           setUserAuth(payload)
         })()
     }
