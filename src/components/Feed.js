@@ -16,8 +16,6 @@ const Feed = () => {
   const [ nextPageExists, setnextPageExists ] = React.useState(true)
 
 
-
-
   const { payload, isLoading } = 
     useFetch(`https://dogsapi.origamid.dev/json/api/photo/?_total=6&_page=${currentPage}&user=0`, {
       cache: "no-store"
@@ -25,9 +23,7 @@ const Feed = () => {
 
   React.useEffect(() => {
     if(payload){
-      
       setFeed( oldFeed => [...oldFeed, payload ]) 
-
       if(payload.length < 6 && payload.length > 0) {
         setnextPageExists(false)
       }
@@ -38,16 +34,12 @@ const Feed = () => {
 
   React.useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
-      
+
       entries.forEach(entry => {
-        
         if(entry.isIntersecting){
-          
-          
           nextPageExists ? 
             setCurrentPage( oldValue => oldValue + 1) : 
               observer.unobserve(document.querySelector("footer"))
-
         }
       })
 
@@ -62,15 +54,10 @@ const Feed = () => {
   }, [nextPageExists])
 
   
-
-
-
   const [ activeModal , setActiveModal ] = React.useState(false)  
   
 
   return (
-
-
     <ModalProvider>
       <section className={`${styles.feed} container`}>
         { isLoading && <Loading/>}  
@@ -88,16 +75,11 @@ const Feed = () => {
               )    
               })
         }
-  
-        
         {!nextPageExists && <p className="contentEnd animationLeft">Não existem mais postagens</p>}
-  
         {
           activeModal && 
             <Modal setActiveModal={setActiveModal}/>
-        }        
-        
-        
+        }           
       </section>
     </ModalProvider>
   )

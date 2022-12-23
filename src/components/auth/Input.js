@@ -7,7 +7,6 @@ const Input = ({type , name , setInput, value , ...props}) => {
 
 
   const verifyEmail = target => {
-
     if(name === "Email"){
       
       const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(target.value)
@@ -16,17 +15,12 @@ const Input = ({type , name , setInput, value , ...props}) => {
         setError(true)
       }
     }
-    
   }
 
   const handleBlur = ({target}) => {
     verifyEmail(target)
-
     if(target.value.length === 0) setError(true)
   }
-
-
-
 
   const handleChange = ({target}) => {
     if(target.value.length > 0) setError(false)

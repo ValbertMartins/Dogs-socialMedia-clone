@@ -34,27 +34,23 @@ const LostPassword = () => {
   }
 
   return (
-    <section className={`${styles.loginSection}`}>
-      <div className={styles.outdoorContainer}>
-      </div>
-
-      <div className={`${styles.formContainer} animationLeft`}>
-        <h1 className={styles.title}>Perdeu a senha?</h1>
-          { !success && 
-            <form onSubmit={handleSubmit}>
-              <Input type="text" 
-                name="Email / usuário" 
-                setInput={setLogin} 
-                value={login} 
-                required={true}
+    <div className={`${styles.formContainer} animationLeft`}>
+      <h1 className={styles.title}>Perdeu a senha?</h1>
+        { !success && 
+          <form onSubmit={handleSubmit}>
+            <Input type="text" 
+              name="Email / usuário" 
+              setInput={setLogin} 
+              value={login} 
+              required={true}
               />
-              <button className="defaultBtn">Enviar Email</button>
-            </form>
-          }
-          { error && <span style={{color: "red"}}>{error}</span> }
-          { success && <span style={{color: "yellowgreen"}}>{success}</span>}
-      </div>
-    </section>
+            <button className="defaultBtn">Enviar Email</button>
+          </form>
+        }
+        { error && <span style={{color: "red"}}>{error}</span> }
+        { success && <span style={{color: "yellowgreen"}}>{success}</span>}   
+    </div>
+   
   )
 }
 

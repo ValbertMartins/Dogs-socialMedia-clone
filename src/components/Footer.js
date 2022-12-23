@@ -8,7 +8,6 @@ const Footer = () => {
     <footer>
       <div className={styles.footerContent}>
           <DogLogo fill="#666"/>
-        
           <p>Dogs. Alguns direitos reservados</p>
       </div>
       </footer>

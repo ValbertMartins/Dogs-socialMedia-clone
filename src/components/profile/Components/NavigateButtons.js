@@ -34,20 +34,20 @@ const NavigateButtons = ({
         <NavLink to="statistics"  
           onClick={() => handlerTitle("Estatísticas")}>
           <StatisticsIcon/>
-          {fieldsText?.myPosts}
+          {fieldsText?.statistics}
         </NavLink>
 
         <NavLink 
           to="create" 
           onClick={() => handlerTitle('Poste Sua Foto')}>
           <CreateIcon/>
-          {fieldsText?.myPosts}
+          {fieldsText?.create}
         </NavLink >
 
         <NavLink to="/login" 
           onClick={() => logout()}>
           <LeaveIcon/>
-          {fieldsText?.myPosts}
+          {fieldsText?.leave}
         </NavLink>
     </>
   )

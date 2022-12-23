@@ -5,7 +5,7 @@ import { Routes, Route} from "react-router-dom"
 import Feed from "./components/Feed";
 import Footer from "./components/Footer"
 import Profile from "./components/profile/Profile";
-import AuthRoutes from "./routes/AuthRoutes";
+import LoginHome from "./components/auth/LoginHome";
 
 
 function App() {
@@ -16,7 +16,7 @@ function App() {
       <Header/> 
         <Routes>
           <Route path="/" element={<Feed/>}/>
-          <Route path="login/*" element={<AuthRoutes/>}/>
+          <Route path="login/*" element={<LoginHome/>}/>
           <Route path="profile/*" element={<Profile/>}/>
         </Routes>
       <Footer/> 
