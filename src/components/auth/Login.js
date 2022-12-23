@@ -3,38 +3,33 @@ import { Auth } from '../../context/Auth'
 import styles from "../../css/Auth.module.css"
 import Input from './Input'
 import LoginRouteLinks from './LoginRouteLinks'
+import { createLoginOptions } from "../../services/api/requestOptions"
+import axios from 'axios'
 
 const Login = () => {
   const [ user , setUser ] = React.useState('')
   const [ password , setPassword ] = React.useState('')
   const [ isLoading , setIsLoading ] = React.useState(false)
   const [ errorLogin , setErrorLogin ] = React.useState(false)
-  const { fetchApi , setLocalToken } = React.useContext(Auth)  
-
-  
-  const options =  {
-    method: "POST",
-    headers: {"Content-type": "application/json"},
-    body: JSON.stringify({
-      username: user,
-      password: password
-    })
-
-  }
+  const { setLocalToken } = React.useContext(Auth)  
 
   const handleSubmit = async ( event ) => {
     event.preventDefault()
-   
+    
     if(password && user){
       setIsLoading(true)
+      const configRequest = createLoginOptions(user, password)
       setErrorLogin(false)
 
-      const [ payload , response] = await fetchApi(`https://dogsapi.origamid.dev/json/jwt-auth/v1/token`, options)
-      if(!response.ok) {
-        setIsLoading(false)
-        return setErrorLogin(true)
+      try { 
+        const response = await axios(configRequest) 
+        setLocalToken(response.data.token)
+
+      } catch(error){
+         setErrorLogin(true)
+         setIsLoading(false)
+         
       } 
-      setLocalToken(payload.token)
     } 
   }
 
@@ -54,9 +49,8 @@ const Login = () => {
           {isLoading ? "Carregando": "Entrar"} 
         </button>
       </form>
-      
+  
       {errorLogin && <p style={{color: "red"}}> Dados incorretos </p> } 
-
       <LoginRouteLinks/>
     </div>
       

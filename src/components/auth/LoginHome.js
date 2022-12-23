@@ -5,6 +5,7 @@ import styles from "../../css/Auth.module.css"
 import Login from './Login'
 import LostPassword from './LostPassword'
 import Register from './Register'
+import ResetPassword from './ResetPassword'
 
 const LoginHome = () => {
   const { userAuth } = React.useContext(Auth)
@@ -30,6 +31,7 @@ const LoginHome = () => {
           <Route path="" element={<Login/>}/>
           <Route path="register" element={<Register/>}/>
           <Route path="lostpassword" element={<LostPassword/>}/>
+          <Route path="reset" element={<ResetPassword/>}/>
         </Routes>
     </section>
   )

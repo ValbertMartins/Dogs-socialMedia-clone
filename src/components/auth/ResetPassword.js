@@ -2,6 +2,8 @@ import React from 'react'
 import styles from "../../css/Auth.module.css"
 import Input from './Input'
 import  { useNavigate, useSearchParams } from "react-router-dom"
+import { createResetPasswordOptions } from '../../services/api/requestOptions'
+import axios from 'axios'
 const ResetPassword = () => {
   const navigate = useNavigate()
   const [ qs ] = useSearchParams()
@@ -12,27 +14,17 @@ const ResetPassword = () => {
   
   async function handlerResetPassword(event){
     event.preventDefault()
-
-    const response = await fetch(`https://dogsapi.origamid.dev/json/api/password/reset`, { 
-      method: "POST",
-      headers: { 
-        "Content-type": "application/json"
-      },
-      body: JSON.stringify({
-        login,
-        key,
-        password: newPassword
-      })
-    })
-    if(response.ok)
+    const configRequest = createResetPasswordOptions(login,key,newPassword)
+    try {
+      await axios(configRequest) 
       navigate("/login")
+
+    } catch(error){
+      console.log(error)
+    } 
   }
 
   return (
-    <section className={`${styles.loginSection}`}>
-      <div className={styles.outdoorContainer}>
-      </div>
-
       <div className={`${styles.formContainer} animationLeft`}>
         <h1 className={styles.title}>Resete a senha</h1>
         <form onSubmit={handlerResetPassword}>
@@ -48,7 +40,6 @@ const ResetPassword = () => {
           <button className="defaultBtn">Resetar</button>
         </form>
       </div>
-    </section>
   )
 }
 

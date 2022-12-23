@@ -1,36 +1,30 @@
 import React from 'react'
 import styles from "../../css/Auth.module.css"
 import Input from "../auth/Input"
+import { createLostPasswordOptions } from "../../services/api/requestOptions"
+import axios from 'axios'
+
 const LostPassword = () => {
 
   const [ login , setLogin ] = React.useState('')
   const [ error , setError ] = React.useState(false)
   const [ success , setSuccess ] = React.useState(false)
 
-
-
-  
   const handleSubmit = async event => {
     event.preventDefault()
-    console.log(login)
-    const response = await fetch("https://dogsapi.origamid.dev/json/api/password/lost", {
-      method: "POST", 
-      headers: {
-        "Content-type" : "application/json"
-      },
-      body: JSON.stringify({
-        login : login, 
-        url: "http://localhost:3000/login/reset"
-      })
-    })
-    const payload = await response.json()
-    
-    if(!response.ok){ 
-      setSuccess(false)
-      return setError(payload.message)
+  
+    const configRequest = createLostPasswordOptions(login)
+    try { 
+      const response = await axios(configRequest)
+      const { data } = response
+      setSuccess(data)
+      setError(false)
+      
+    } catch(error){
+      setError(error.response.data.message)
+      return setSuccess(false)
     }
-    setSuccess(payload)
-    setError(false)
+    
   }
 
   return (

@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom'
 import { Auth } from '../../context/Auth'
 import styles from "../../css/Auth.module.css"
 import Input from "./Input"
-
+import { createLoginOptions ,createRegisterOptions } from "../../services/api/requestOptions"
+import axios from 'axios'
 
 const Register = () => {
 
@@ -15,48 +16,27 @@ const Register = () => {
   const [ email , setEmail ] = React.useState('')
   const [ password , setPassword ] = React.useState('')
   const [ errorSubmit , setErrorSubmit ] = React.useState(false)
-
-  const { fetchApi , setLocalToken } = React.useContext(Auth) 
+  const { setLocalToken } = React.useContext(Auth) 
   const navigate = useNavigate()
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async event => {
   event.preventDefault();
 
-  ( async () => {
-    //register user
-    const [ payload , response] = await fetchApi(`https://dogsapi.origamid.dev/json/api/user`, {
-      method: "POST",
-      headers: {"Content-type": "application/json"},
-      body: JSON.stringify({
-          username: user,
-          password: password,
-          email: email
-      })  
-    })
+    //req options
+    const configRequestRegister = createRegisterOptions(user,password,email)
+    const configRequestLogin = createLoginOptions(user,password)
 
-    if(response.ok){
-      //login user
-      const [ payloadToken , responseToken ] = await fetchApi(`https://dogsapi.origamid.dev/json/jwt-auth/v1/token`, {
-        method: "POST",
-        headers: {"Content-type": "application/json"},
-        body: JSON.stringify({
-          username: user,
-          password: password
-        })
+    try { 
+      await axios(configRequestRegister)
+      const responseLogin  = await axios(configRequestLogin)
+      setLocalToken(responseLogin.data.token)
+      navigate('/profile')
 
-      })
-        if(responseToken.ok) {
-          setLocalToken(payloadToken.token)
-          navigate('/profile')
-        } 
-    
-    } else {
-      setErrorSubmit(payload.message)
+    } catch(error){
+      console.log(error)
+      setErrorSubmit(error.response.data.message)
     }
-    })() 
-
-}
-
+  }
 
  return (
   <div className={`${styles.formContainer} animationLeft`}>
