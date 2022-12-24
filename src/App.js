@@ -9,8 +9,6 @@ import LoginHome from "./components/auth/LoginHome";
 
 
 function App() {
-
-
   return(
     <>
       <Header/> 

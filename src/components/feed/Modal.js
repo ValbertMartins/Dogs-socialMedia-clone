@@ -2,22 +2,22 @@ import React from 'react'
 import styles from "../../css/Modal.module.css"
 import { ModalContext } from '../../context/ModalState'
 import ComentModal from "./ComentModal"
-import useFetch from '../../hooks/useFetch'
-import Bone from "../svg/Bone"
 import { Auth } from '../../context/Auth'
+import Loading from '../Loading'
+import ContentModal from './ContentModal'
+import axios from 'axios'
+import { createDeletePostOptions } from '../../services/api/requestOptions'
+
 const Modal = ({setActiveModal}) => {
 
   const { idModal } = React.useContext(ModalContext)
   const [ photo , setPhoto ] = React.useState({})
   const [ isLoading , setIsLoading ] = React.useState(true)
-  const [ commentList , setCommentList ] = React.useState([])
-  const [ updateUseFetch , setUpdateUseFetch ] = React.useState(false)
-  const { userAuth , fetchApi ,  localToken } = React.useContext(Auth)
+  const { userAuth , localToken } = React.useContext(Auth)
   const [ activeDeleteButton , setActiveDeleteButton ] = React.useState(false)
   const [ photoExists , setPhotoExists ] = React.useState(true)
   
-  
-
+  //verify if shows delete btn
   React.useEffect(() => {
     if(userAuth){
       if(photo.author === userAuth.nome){
@@ -33,45 +33,33 @@ const Modal = ({setActiveModal}) => {
     }
   }
 
-  //fetch to modal infos
-  const { payload } = useFetch(`https://dogsapi.origamid.dev/json/api/photo/${idModal}`, {
-    cache: "no-store"
-  })
-
   React.useEffect(() => {
-    if(payload){
-      if(payload.data?.status === 404) return setPhotoExists(false)
-      setPhoto(payload.photo)
-      setIsLoading(false)
-    } 
-    
-  }, [payload])
-  
-  //request the comments
-  const { payload:comments } = useFetch(`https://dogsapi.origamid.dev/json/api/comment/${idModal}`, {
-    cache: "no-store"
-  }, updateUseFetch)
-  
-  
-  React.useEffect(() => {
-    setCommentList(comments)
-  } , [comments])
 
+    async function requestPhoto(){
+      try {
+        const response = await fetch(`https://dogsapi.origamid.dev/json/api/photo/${idModal}`,{cache: "no-store"})
+        if(response.status !== 200) throw new Error()
+        const {photo} = await response.json()
+        setPhoto(photo)
+
+      } catch(error){
+        setPhotoExists(false)
+
+      } finally {
+        setIsLoading(false)
+      }
+    }
+    requestPhoto()    
+  }, [idModal])
   
   const handlerDeletePost = async () => {
     const confirmed = window.confirm("Tem certeza que deseja deletar?")
     if(confirmed){
-      const [ payload ] = await fetchApi(`https://dogsapi.origamid.dev/json/api/photo/${idModal}`, {
-        method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${localToken}`
-        }
-      })
-      console.log(payload)
+      const configRequest = createDeletePostOptions(idModal, localToken)
+      await axios(configRequest)
     }
   }
 
- 
   if(!photoExists) {
     return (
       <div className={styles.modalContainer}  
@@ -86,42 +74,24 @@ const Modal = ({setActiveModal}) => {
     <section 
       className={styles.modalContainer}
       onClick={closeModal}>
-        
-    {
-      isLoading ? <Bone/> :  
-
-      <div className={styles.modalContent}>
-        <div className={styles.imagePostContainer}>
-          <img src={photo.src} alt={photo.title}/>
-        </div>
-        <div className={styles.postContent}>
-          <div className={styles.viewsContainer}>
-              {
-                activeDeleteButton ? 
-                  <button className={styles.buttonDelete} onClick={handlerDeletePost}>deletar</button> : 
-                  <p>@{photo.author}</p>
-              }
-              <p className={styles.acessos}>{photo.acessos}</p>
+      {
+        isLoading ? <Loading/> :  
+        <div className={styles.modalContent}>
+          <div className={styles.imagePostContainer}>
+            <img src={photo.src} alt={photo.title}/>
           </div>
-
-          <div className={styles.infoContainer}>
-            <h1 className={styles.dogName}>{photo.title}</h1>
-            <span>{photo.peso} kg</span>
-            <span>{photo.idade} anos </span>
+          <div className={styles.postContent}>
+            
+            <ContentModal 
+              activeDeleteButton={activeDeleteButton}
+              handlerDeletePost={handlerDeletePost}
+              photo={photo}
+            />
+    
+            <ComentModal idModal={idModal}/>
           </div>
-
-          <ComentModal 
-            idModal={idModal} 
-            setCommentlist={setCommentList} 
-            commentList={commentList} 
-            setUpdateUseFetch={setUpdateUseFetch}
-            updateUseFetch={updateUseFetch}
-          />
-        </div>
-      </div>  
-    }
-
-
+        </div>  
+      }
     </section>
   )
 }

@@ -1,49 +1,41 @@
+import axios from 'axios'
 import React from 'react'
 import { Auth } from '../../context/Auth'
 import styles from "../../css/Modal.module.css"
+import { createCommentOptions } from '../../services/api/requestOptions'
 import SendComent from '../svg/SendComent'
 
-
-
-
-
-const Coment = ({idModal,commentList , setUpdateUseFetch}) => {
+const Coment = ({idModal}) => {
   
   const { userAuth , localToken } = React.useContext(Auth)
   const [ comment , setComment ] = React.useState('')
-  const { fetchApi } = React.useContext(Auth)
-  
+  const [ commentList , setCommentList ] = React.useState([])
+  const [ updateComments , setUpdateComments ] = React.useState(false)
+   
+  React.useEffect(() => {
+    async function requestComments(){
+       const response = await axios.get(`/api/comment/${idModal}`)
+       const { data:comments } = response     
+       setCommentList(comments)
+    }
+    requestComments()
+  } , [idModal, updateComments])
 
 
-  const handleSubmit = (event) => {
+
+  const handleSubmitComment = async event => {
     event.preventDefault()
     event.stopPropagation();
-    
-    ( async () => {
-          await fetchApi(`https://dogsapi.origamid.dev/json/api/comment/${idModal}`, {
-              method: "POST",
-              headers: {
-                "Content-type" : "application/json",
-                Authorization: `Bearer ${localToken}`
-              },
-              body: JSON.stringify({  
-                comment: comment
-              })
-            })
-          setComment("")
-          
-          setUpdateUseFetch( auxPrev => !auxPrev)
-          
-    })()  
+
+    const configRequest = createCommentOptions(comment,localToken, idModal)
+    await axios(configRequest)
+    setComment("")
+    setUpdateComments(!updateComments)
+  
   }
 
-  
-  return (
-
-   
+  return (   
     <section className={styles.comentContainer}>
-
-    
       <article className={styles.comments}>
         {
           commentList?.map( comment => {
@@ -67,13 +59,12 @@ const Coment = ({idModal,commentList , setUpdateUseFetch}) => {
                 onChange={({target}) => setComment(target.value)}
                 value={comment}
               />
-              <button onClick={handleSubmit} >
+              <button onClick={handleSubmitComment} >
                 <SendComent />
               </button>
             </form>
           </article>
       }
-
     </section>
   )
 }

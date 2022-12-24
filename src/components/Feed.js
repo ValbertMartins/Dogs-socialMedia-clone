@@ -23,7 +23,8 @@ const Feed = () => {
 
   React.useEffect(() => {
     if(payload){
-      setFeed( oldFeed => [...oldFeed, payload ]) 
+      setFeed( oldFeed => [...oldFeed, payload ])
+
       if(payload.length < 6 && payload.length > 0) {
         setnextPageExists(false)
       }
@@ -50,7 +51,6 @@ const Feed = () => {
 
     observer.observe(document.querySelector("footer"))
     return () => observer.unobserve(document.querySelector("footer"))
-
   }, [nextPageExists])
 
   
@@ -61,9 +61,8 @@ const Feed = () => {
     <ModalProvider>
       <section className={`${styles.feed} container`}>
         { isLoading && <Loading/>}  
-        { 
-         
-           feed.map( (collectionPosts,index) => {
+        {
+          feed.map( (collectionPosts,index) => {
             return (
               <PostCollection 
                 collectionPosts={collectionPosts}
@@ -72,8 +71,8 @@ const Feed = () => {
                 activeModal={activeModal}
                 isLoading={isLoading}
               />
-              )    
-              })
+            )    
+          })
         }
         {!nextPageExists && <p className="contentEnd animationLeft">Não existem mais postagens</p>}
         {
@@ -83,7 +82,6 @@ const Feed = () => {
       </section>
     </ModalProvider>
   )
-
 }
 
 export default Feed
