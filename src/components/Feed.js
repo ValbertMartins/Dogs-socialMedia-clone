@@ -15,12 +15,13 @@ const Feed = () => {
   const [ currentPage, setCurrentPage ] = React.useState(1)
   const [ nextPageExists, setnextPageExists ] = React.useState(true)
 
-
+ 
   const { payload, isLoading } = 
     useFetch(`https://dogsapi.origamid.dev/json/api/photo/?_total=6&_page=${currentPage}&user=0`, {
       cache: "no-store"
     })
 
+  console.log(payload)
   React.useEffect(() => {
     if(payload){
       setFeed( oldFeed => [...oldFeed, payload ])

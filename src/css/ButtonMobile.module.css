@@ -12,7 +12,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  
+  border: none;
   border-radius: 2px;
   margin-bottom: 0.5rem;  
 }
@@ -24,12 +24,9 @@
 }
 
 
-.buttonMobile:hover { 
-  border: 1px solid #fb1;
-  box-shadow: 0 0 0 3px #fea;
-  color: #fb1;
-  
-}
+.btnMobileContainer a:hover svg * {
+  fill: #fb1;
+ }
 
 
 .hamburguer { 

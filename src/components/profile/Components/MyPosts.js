@@ -1,10 +1,13 @@
 import React from 'react'
 import styles from "../../../css/MyPictures.module.css"
-import useFetch from '../../../hooks/useFetch'
 import { Link } from "react-router-dom"
 import { ModalContext } from '../../../context/ModalState'
 import Loading from '../../Loading'
 import { Auth } from '../../../context/Auth'
+import { createRequestPicturesOptions } from '../../../services/api/requestOptions'
+import axios from 'axios'
+
+
 const MyPosts = ({setActiveModal}) => {
   
   React.useEffect(() => { 
@@ -16,29 +19,39 @@ const MyPosts = ({setActiveModal}) => {
   const [ currentPage, setCurrentPage ] = React.useState(1)
   const [ nextPageExists, setnextPageExists ] = React.useState(true)
   const { userAuth:user, localToken } = React.useContext(Auth) 
-
-  //request my pictures
-  const { payload , isLoading } = 
-    useFetch(`https://dogsapi.origamid.dev/json/api/photo/?_page=${currentPage}&_total=6&_user=${user?.id}`, {
-      method: "GET", 
-          headers: {
-            "Content-type": "application/json", 
-            authorization: `Bearer ${localToken}`
-          }
-    })
-
+  const [ isLoading , setIsLoading ] = React.useState(true)
   
-  React.useEffect(() => {  
-   if(user?.id && payload){
-      setMyPictures( oldPictures => [ ...oldPictures, ...payload]) 
-      if(payload.length < 6 && payload.length > 0) {
-        setnextPageExists(false)
-      }
-  }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [payload])
 
-  const handleOpenModal = (id) => {
+  React.useEffect(() => {
+
+    function storePicturesAndVerifiyConditionStop(payload){
+      if(user?.id && payload){
+        setMyPictures( oldPictures => [ ...oldPictures, ...payload]) 
+        if(payload.length < 6 && payload.length > 0) {
+          setnextPageExists(false)
+        }
+      }
+    }
+
+    async function requestMyPictures(){
+      const configRequest = createRequestPicturesOptions(currentPage,user,localToken)
+      try { 
+        const response = await axios(configRequest)
+        const { data:payload } = response
+        storePicturesAndVerifiyConditionStop(payload)
+      }catch(error){
+
+      } finally { 
+        setIsLoading(false)
+      }
+    }
+    requestMyPictures()
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentPage,user])
+  
+
+  const handlerOpenModal = (id) => {
     setActiveModal(true)
     setIdModal(id)
   }
@@ -77,7 +90,7 @@ const MyPosts = ({setActiveModal}) => {
                 myPictures?.map((picture) => {
                   return(
                     <Link key={picture.id} className="animationLeft"
-                      onClick={() => handleOpenModal(picture.id)}>
+                      onClick={() => handlerOpenModal(picture.id)}>
                       <img 
                         src={picture.src} 
                         alt={picture.name}

@@ -88,3 +88,49 @@ export function createDeletePostOptions(idModal, localToken){
   
   }
 }
+
+export function createPostPhotoOptions(formData,localToken){
+  return {
+    method: "POST",
+    url: `/api/photo`,
+    headers: {
+      authorization: `Bearer ${localToken}`    
+    },
+    data: formData
+  }
+}
+
+
+export function createRequestPicturesOptions(currentPage, user , localToken){
+  return { 
+    method: "GET", 
+    url: `/api/photo/?_page=${currentPage}&_total=6&_user=${user?.id}`,
+    headers: {
+      "Content-type": "application/json", 
+      authorization: `Bearer ${localToken}`
+    }
+  }
+}
+
+export function createValidateTokenOptions(localToken){
+  return { 
+    method: "POST", 
+    url: `/jwt-auth/v1/token/validate`, 
+    headers: {
+      "Content-type": "application/json", 
+      authorization: `Bearer ${localToken}`
+    },
+  }
+}
+
+export function createUserAuthOptions(localToken){
+  return {
+    method: "GET",
+    url: `/api/user`,
+    headers: {
+      "Content-type": "application/json", 
+      authorization: `Bearer ${localToken}`
+    }
+  }
+}
+

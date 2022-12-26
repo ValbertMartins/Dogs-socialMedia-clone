@@ -9,11 +9,8 @@ const fieldsText = {
   create: "Adicionar Foto",
   leave: "Sair"
 }
-const ButtonMobileNavigate = ({ 
-  setTitle , 
-  setUserAuth, 
-  setValidatedToken, 
-  setLocalToken}) => {
+
+const ButtonMobileNavigate = ({setTitle}) => {
 
   const [ activeButtonMobile , setActiveButtonMobile ] = React.useState(false)
 
@@ -24,22 +21,21 @@ const ButtonMobileNavigate = ({
   return (
 
     <section className={styles.btnMobileContainer}>
-      <div 
-        className={`${styles.buttonMobile} ${activeButtonMobile && styles.buttonMobileActive}`} 
+      <button 
+        className={`${styles.buttonMobile} 
+          ${activeButtonMobile && styles.buttonMobileActive}`} 
         onClick={handleButtonMobile}>
-
-        <span className={ `${styles.hamburguer} ${activeButtonMobile && styles.hamburguerAnimated}`}> 
+          
+        <span className={ `${styles.hamburguer} 
+          ${activeButtonMobile && styles.hamburguerAnimated}`}> 
         </span>
-      </div>
+      </button>
 
       {
         activeButtonMobile && 
           <div className={`${styles.navigateLinks}`}>
             <NavigateButtons
               {...{setTitle , 
-                setUserAuth, 
-                setValidatedToken, 
-                setLocalToken,
                 fieldsText
               }}
             />

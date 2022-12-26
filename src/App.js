@@ -9,11 +9,12 @@ import LoginHome from "./components/auth/LoginHome";
 
 
 function App() {
+
   return(
     <>
       <Header/> 
         <Routes>
-          <Route path="/" element={<Feed/>}/>
+          <Route path="/" element={<Feed />}/>
           <Route path="login/*" element={<LoginHome/>}/>
           <Route path="profile/*" element={<Profile/>}/>
         </Routes>

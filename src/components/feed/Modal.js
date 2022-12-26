@@ -16,7 +16,6 @@ const Modal = ({setActiveModal}) => {
   const { userAuth , localToken } = React.useContext(Auth)
   const [ activeDeleteButton , setActiveDeleteButton ] = React.useState(false)
   const [ photoExists , setPhotoExists ] = React.useState(true)
-  
   //verify if shows delete btn
   React.useEffect(() => {
     if(userAuth){
@@ -34,7 +33,6 @@ const Modal = ({setActiveModal}) => {
   }
 
   React.useEffect(() => {
-
     async function requestPhoto(){
       try {
         const response = await fetch(`https://dogsapi.origamid.dev/json/api/photo/${idModal}`,{cache: "no-store"})
@@ -57,6 +55,7 @@ const Modal = ({setActiveModal}) => {
     if(confirmed){
       const configRequest = createDeletePostOptions(idModal, localToken)
       await axios(configRequest)
+      window.location.reload()
     }
   }
 

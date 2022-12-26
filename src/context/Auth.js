@@ -1,90 +1,65 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+import axios from "axios";
 import  React from "react";
+import { createUserAuthOptions, createValidateTokenOptions } from "../services/api/requestOptions";
 export const Auth = React.createContext()
 
 export const AuthProvider = (props) => {
 
-  
   const [ userAuth , setUserAuth ] = React.useState(null)
-  const [ validatedToken , setValidatedToken ] = React.useState(false)
   const [ localToken , setLocalToken ] = React.useState(localStorage.getItem('token'))
   
-  
-  //store localToken
+  //store localToken and actualize localstore to actual localToken 
   React.useEffect(() =>  { 
-
     if(localToken){
       localStorage.setItem('token', localToken)
     }
   }, [localToken])
  
+
   //validate localToken
   React.useEffect(() => {
 
-    if(localToken){
+    async function requestUserAuth(){
+      const configRequest = createUserAuthOptions(localToken)
+      const response = await axios(configRequest)
+      setUserAuth(response.data)
 
-      (async () => {
-        const [ , response ] = await fetchApi(`https://dogsapi.origamid.dev/json/jwt-auth/v1/token/validate`, {
-          method: "POST", 
-          headers: {
-            "Content-type": "application/json", 
-            authorization: `Bearer ${localToken}`
-          }
-        })   
-        if(!response.ok) {
-          return setUserAuth(false)
-        }
-        setValidatedToken(true)
-      })()
     }
 
+    async function requestTokenValidate(){
+      const configRequest = createValidateTokenOptions(localToken)
+      try {
+        await axios(configRequest)
+        requestUserAuth()
 
+      } catch(error){
+        setUserAuth(false)
+        window.localStorage.removeItem("token")
+      }
+    }
+    
+    if(localToken){
+      requestTokenValidate()
+    }
+    
   }, [localToken])
 
 
-  //save user infos
-  React.useEffect(() => {       
-    if(validatedToken){
-      (async () => {
-          const [ payload ] = await fetchApi(`https://dogsapi.origamid.dev/json/api/user`, {
-            method: "GET", 
-            headers: {
-              "Content-type": "application/json", 
-              authorization: `Bearer ${localToken}`
-            }
-          })         
-          setUserAuth(payload)
-        })()
-    }
-     
-  } , [validatedToken])
 
-  
-  async function fetchApi(url, options){
-    try {
-      const response = await fetch(url, options)
-      const payload = await response.json()
-      return [ payload , response ]
-
-      
-    }catch(error){
-      throw new Error()
-    }
-
-
+  function logout(){
+    setUserAuth(null)
+    window.localStorage.removeItem("token")
   }
-
-
+ 
   return (
 
     <Auth.Provider value={{ 
       userAuth , 
-      setUserAuth , 
-      fetchApi, 
+      setUserAuth,  
       localToken , 
       setLocalToken,
-      validatedToken,
-      setValidatedToken
+      logout
     }
       }>
         {props.children}

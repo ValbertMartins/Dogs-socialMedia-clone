@@ -4,24 +4,16 @@ import MyPicturesIcon from '../../svg/MyPicturesIcon'
 import StatisticsIcon from '../../svg/StatisticsIcon'
 import CreateIcon from '../../svg/CreateIcon'
 import LeaveIcon from '../../svg/LeaveIcon'
+import { Auth } from '../../../context/Auth'
 
-const NavigateButtons = ({ 
-    setTitle , 
-    setUserAuth, 
-    setValidatedToken, 
-    setLocalToken,
-    fieldsText
-}) => {
+const NavigateButtons = ({setTitle, fieldsText}) => {
+
+  const { logout } = React.useContext(Auth)
 
   function handlerTitle(title){
     setTitle(title)
   }
 
-  function logout(){
-    setUserAuth(null)
-    setValidatedToken(false)
-    setLocalToken(localStorage.removeItem('token'))
-  }
   return (
     <>
        <NavLink to="" 

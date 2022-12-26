@@ -80,7 +80,6 @@
 
 
 .defaultBtn:hover{ 
-    
     box-shadow: 0 0 0 3px #fea;
  }
 
@@ -99,12 +98,10 @@
 .active svg{
     fill: #fb1;
 }
-.active svg rect {
+.active svg * {
     fill: #fb1;
 }
-.active svg path {
-    fill: #fb1;
-}
+
     
 @media(max-width: 640px ){
     .active { 

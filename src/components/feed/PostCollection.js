@@ -1,11 +1,10 @@
 import React from 'react'
 import styles from '../../css/PostCollection.module.css' 
-import { Link } from "react-router-dom"
 import { ModalContext } from '../../context/ModalState'
 
 
 
-const PostCollection = ({collectionPosts , setActiveModal , isLoading}) => {
+const PostCollection = ({collectionPosts , setActiveModal }) => {
     
 
   const { setIdModal } = React.useContext(ModalContext)
@@ -25,23 +24,20 @@ const PostCollection = ({collectionPosts , setActiveModal , isLoading}) => {
 
 
   return(
-      <section className={`${styles.postsContainer} animationLeft`} >
-          
+      <section className={`${styles.postsContainer} animationLeft`} > 
           {
           collectionPosts.map((post) => {
             return (
-              <Link 
-              onMouseEnter={handleShowViews}
-              onMouseLeave={handleHideViews}
-              onClick={openModal}
-              key={post.id} 
-              id={post.id}
-              
-              className={styles.post}>
+              <div 
+                onMouseEnter={handleShowViews}
+                onMouseLeave={handleHideViews}
+                onClick={openModal}
+                key={post.id} 
+                id={post.id}  
+                className={styles.post}>
                   <img src={post.src} 
                     id={post.id} 
                     alt={post.title}/>
-
                   {
                     postId === post.id &&
                       <div className={styles.viewsContainer}>
@@ -49,9 +45,8 @@ const PostCollection = ({collectionPosts , setActiveModal , isLoading}) => {
                           {post.acessos}
                         </p>
                       </div>
-                  } 
-                
-              </Link>
+                  }  
+              </div>
             )
           })
         }

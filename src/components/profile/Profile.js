@@ -8,29 +8,19 @@ import { Auth } from '../../context/Auth'
 import MyPosts from './Components/MyPosts'
 import { ModalProvider } from '../../context/ModalState'
 import Modal from "../../components/feed/Modal"
-import NavigateButtons from './Components/NavigateButtons'
-import ButtonMobileNavigate from './Components/ButtonMobileNavigate'
+import ProfileHeader from './Components/ProfileHeader'
 
 const Profile = () => {
-
-  const [ title , setTitle ] = React.useState('Minha Conta')
-  
-  const { 
-    userAuth,
-    setUserAuth,   
-    localToken , 
-    setLocalToken, 
-    setValidatedToken
-  } = React.useContext(Auth)
-  
   React.useEffect(() => { 
     document.title = `Profile | Dogs`
   } , [])
-  
+
+
+  const [ title , setTitle ] = React.useState('Minha Conta')
+  const { userAuth , localToken} = React.useContext(Auth)
   const [ activeModal, setActiveModal ] = React.useState(false)
   const navigate = useNavigate()
   
-
   //test if token exists
   React.useEffect(() => {
     if(!localToken) {
@@ -38,7 +28,6 @@ const Profile = () => {
     }
   }, [localToken,navigate])
 
-  
   React.useEffect(() => {
 
     if(userAuth === false){
@@ -46,53 +35,15 @@ const Profile = () => {
     }
   }, [userAuth,navigate])
   
-  
-  const [ widthWindow , setWidthWindow ] = React.useState(window.innerWidth)
-  React.useEffect(() => {
-    
-    window.addEventListener("resize", () => {
-      setWidthWindow(window.innerWidth)
-
-    })
-    
-    
-  }, [])
-
 
   return (
 
     <ModalProvider>
       <section className={styles.containerProfile}>
-        <div className={styles.dashboardContainer}>
-          <h1 className={styles.title}>{title}</h1>
-
-        {
-          widthWindow < 640 ? 
-            <ButtonMobileNavigate
-              {...{
-                setTitle,   
-                setUserAuth , 
-                setValidatedToken, 
-                setLocalToken,
-              }}
-              
-            /> : 
-            <article className={styles.navigateButtonsContainer}>
-              <NavigateButtons 
-                {...{
-                  setTitle,   
-                  setUserAuth , 
-                  setValidatedToken, 
-                  setLocalToken,
-                }}
-                />
-            </article>
-
-        }        
-        </div>
+        <ProfileHeader setTitle={setTitle} title={title}/>
 
         <Routes>
-          <Route path="" element={<MyPosts setActiveModal={setActiveModal}/>}/> 
+          <Route path="" element={<MyPosts setActiveModal={setActiveModal} />}/> 
           <Route path='statistics' element={<Statistics/>}/>
           <Route path='create' element={<Create/>}/>
         </Routes>

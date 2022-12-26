@@ -3,6 +3,8 @@ import Input from "../../auth/Input"
 import {Auth} from "../../../context/Auth"
 import styles from '../../../css/CreatePost.module.css'
 import { useNavigate} from 'react-router-dom'
+import axios from 'axios'
+import { createPostPhotoOptions } from '../../../services/api/requestOptions'
 const Create = () => {
 
   const [ picture , setPicture ] = React.useState({})
@@ -13,14 +15,13 @@ const Create = () => {
   const [ isLoading , setIsLoading ] = React.useState(false)
 
   const navigate = useNavigate()
-  const { fetchApi , localToken } = React.useContext(Auth) 
+  const { localToken } = React.useContext(Auth) 
   
 
   React.useEffect(() => { 
     document.title = `Create | Dogs`
   } , [])
 
-  
   
   const handleShowPicturePreview = async (event) => {
     const image = event.target.files[0]
@@ -33,30 +34,26 @@ const Create = () => {
   
   }
   
-
-
-
   const handleSubmitPicture = async (event) => {
     event.preventDefault()
     setIsLoading(true)
     const formData = new FormData()
-
     formData.append("img", picture)
     formData.append("nome", name)
     formData.append("peso", weigth)
     formData.append("idade", age)
 
-    const [ , response ] = await fetchApi(`https://dogsapi.origamid.dev/json/api/photo`, {
-      method: "POST",
-      headers: {
-        authorization: `Bearer ${localToken}`    
-      },
-      body: formData
+    try {
+      const configRequest = createPostPhotoOptions(formData, localToken)
+      await axios(configRequest)
+      navigate("/profile")
+      
+    } catch (error){
+      console.log(error)
 
-    })
-    setIsLoading(false)
-    if(response.ok)
-      return navigate("/profile")
+    } finally {       
+      setIsLoading(false)
+    }
     
   }
 
@@ -72,7 +69,7 @@ const Create = () => {
           <button className='defaultBtn' 
             style={ isLoading ? {
               cursor: "wait",
-            } : {}
+            } : { cursor: "pointer"}
           }
           >Enviar</button>
         </form>
