@@ -12,6 +12,8 @@ const Coment = ({idModal}) => {
   const [ commentList , setCommentList ] = React.useState([])
   const [ updateComments , setUpdateComments ] = React.useState(false)
    
+ 
+
   React.useEffect(() => {
     async function requestComments(){
        const response = await axios.get(`/api/comment/${idModal}`)

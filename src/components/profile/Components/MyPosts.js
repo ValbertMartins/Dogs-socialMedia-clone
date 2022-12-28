@@ -1,21 +1,18 @@
 import React from 'react'
 import styles from "../../../css/MyPictures.module.css"
-import { Link } from "react-router-dom"
-import { ModalContext } from '../../../context/ModalState'
 import Loading from '../../Loading'
 import { Auth } from '../../../context/Auth'
 import { createRequestPicturesOptions } from '../../../services/api/requestOptions'
 import axios from 'axios'
 
 
-const MyPosts = ({setActiveModal}) => {
+const MyPosts = ({setIdModal}) => {
   
   React.useEffect(() => { 
     document.title = `MyPosts | Dogs`
   } , [])
 
   const [ myPictures , setMyPictures ] = React.useState([])
-  const { setIdModal } = React.useContext(ModalContext)
   const [ currentPage, setCurrentPage ] = React.useState(1)
   const [ nextPageExists, setnextPageExists ] = React.useState(true)
   const { userAuth:user, localToken } = React.useContext(Auth) 
@@ -52,7 +49,8 @@ const MyPosts = ({setActiveModal}) => {
   
 
   const handlerOpenModal = (id) => {
-    setActiveModal(true)
+    //setActiveModal(true)
+    console.log(id)
     setIdModal(id)
   }
 
@@ -80,25 +78,20 @@ const MyPosts = ({setActiveModal}) => {
   }, [nextPageExists])
   
   return (
-    
       <section>
         {isLoading && <Loading/>}
-
         {
           <div className={`animationLeft ${styles.myPicturesContainer}`}>     
-              {
-                myPictures?.map((picture) => {
-                  return(
-                    <Link key={picture.id} className="animationLeft"
-                      onClick={() => handlerOpenModal(picture.id)}>
-                      <img 
-                        src={picture.src} 
-                        alt={picture.name}
-                        />
-                    </Link>
-                  )
-                })
-              }
+            {
+              myPictures?.map((picture) => {
+                return(
+                  <div key={picture.id} className="animationLeft"
+                    onClick={() => handlerOpenModal(picture.id)}>
+                    <img src={picture.src} alt={picture.name}/>
+                  </div>
+                )
+              })
+            }
           </div>
       }
       </section>

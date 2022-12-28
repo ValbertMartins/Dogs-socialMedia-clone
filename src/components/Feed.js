@@ -1,6 +1,4 @@
 import React from 'react'
-import { ModalProvider } from '../context/ModalState'
-import useFetch from '../hooks/useFetch'
 import Modal from './feed/Modal'
 import PostCollection from './feed/PostCollection'
 import styles from "../css/Feed.module.css"
@@ -14,24 +12,48 @@ const Feed = () => {
   const [ feed, setFeed ] = React.useState([])
   const [ currentPage, setCurrentPage ] = React.useState(1)
   const [ nextPageExists, setnextPageExists ] = React.useState(true)
+  const [ isLoading , setIsLoading ] = React.useState(false)
+  // const { payload, isLoading } = 
+  //   useFetch(`https://dogsapi.origamid.dev/json/api/photo/?_total=6&_page=${currentPage}&user=0`, {
+  //     cache: "no-store"
+  //   })
 
- 
-  const { payload, isLoading } = 
-    useFetch(`https://dogsapi.origamid.dev/json/api/photo/?_total=6&_page=${currentPage}&user=0`, {
-      cache: "no-store"
-    })
+  // React.useEffect(() => {
+  //   if(payload){
+  //     setFeed( oldFeed => [...oldFeed, payload ])
 
-  console.log(payload)
-  React.useEffect(() => {
-    if(payload){
-      setFeed( oldFeed => [...oldFeed, payload ])
+  //     if(payload.length < 6 && payload.length > 0) {
+  //       setnextPageExists(false)
+  //     }
+  //   }
 
-      if(payload.length < 6 && payload.length > 0) {
-        setnextPageExists(false)
+  // }, [ payload ])
+
+  React.useEffect(() => { 
+    function storePicturesAndVerifiyConditionStop(payload){
+      if(payload){
+        setFeed( oldFeed => [ ...oldFeed, payload]) 
+        if(payload.length < 6 && payload.length > 0) {
+          setnextPageExists(false)
+        }
       }
     }
-
-  }, [ payload ])
+    async function requestMyPictures(){
+      try { 
+        const response = await fetch(`https://dogsapi.origamid.dev/json/api/photo/?_total=6&_page=${currentPage}&user=0`, {
+        cache: "no-store"
+        })
+        const payload  = await response.json()
+        if(!response.ok) throw new Error()
+        storePicturesAndVerifiyConditionStop(payload)
+      }catch(error){
+        console.log(error)
+      } finally { 
+        setIsLoading(false)
+      }
+    }
+    requestMyPictures()
+  }, [currentPage])
   
 
   React.useEffect(() => {
@@ -56,32 +78,32 @@ const Feed = () => {
 
   
   const [ activeModal , setActiveModal ] = React.useState(false)  
-  
+  const [ idModal , setIdModal ] = React.useState(null)
 
   return (
-    <ModalProvider>
-      <section className={`${styles.feed} container`}>
-        { isLoading && <Loading/>}  
-        {
-          feed.map( (collectionPosts,index) => {
-            return (
-              <PostCollection 
-                collectionPosts={collectionPosts}
-                key={index}
-                setActiveModal={setActiveModal}
-                activeModal={activeModal}
-                isLoading={isLoading}
-              />
-            )    
-          })
-        }
-        {!nextPageExists && <p className="contentEnd animationLeft">Não existem mais postagens</p>}
-        {
-          activeModal && 
-            <Modal setActiveModal={setActiveModal}/>
-        }           
-      </section>
-    </ModalProvider>
+    <section className={`${styles.feed} container`}>
+      { isLoading && <Loading/>}  
+      {
+        feed.map( (collectionPosts,index) => {
+          return (
+            <PostCollection 
+              collectionPosts={collectionPosts}
+              key={index}
+              setActiveModal={setActiveModal}
+              activeModal={activeModal}
+              isLoading={isLoading}
+              setIdModal={setIdModal}
+            />
+          )    
+        })
+      }
+      {!nextPageExists && <p className="contentEnd animationLeft">Não existem mais postagens</p>}
+      {
+        idModal && 
+          <Modal setIdModal={setIdModal} idModal={idModal}/>
+      }           
+    </section>
+    
   )
 }
 
