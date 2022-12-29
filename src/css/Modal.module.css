@@ -20,6 +20,7 @@
   background-color: #fff;
   animation: scaleAnimation 0.3s forwards ease;
   display: flex;
+
   
 
   
@@ -215,7 +216,8 @@
   .modalContent { 
      display: grid;
      max-width: 640px;
-     max-height: 950px;
+     max-height: 100vh;
+     overflow: scroll;
      
   }
 
@@ -227,13 +229,7 @@
   .postContent {
      width: 100%;
     
-  }
-
-  .comments {
-    max-height: 80px;
-  }
-  
-
+  }  
   .dogName {
     margin:  0.5rem 0rem;
   }
@@ -251,23 +247,19 @@
 @media(max-width: 780px) {
   .modalContent {  
     max-width: 80%;
-    max-height: 95%;
+    
   }
 
   .dogName {
     font-size: 2rem;
   }
 
-  .comments {
-    max-height: 90px;
-  } 
+ 
 
 }
 
 @media(max-width: 630px){
-  .comments {
-    max-height: 200px;
-  }  
+   
 }
 
 
@@ -278,17 +270,4 @@
 
  }
 
- .comments {
-  max-height: 300px;
-} 
-}
-
-@media(max-width: 350px){ 
-
-  .modalContent {
-    max-height: 40%;
-  }
-  .comments {
-    max-height: 400px;
-  }
 }
