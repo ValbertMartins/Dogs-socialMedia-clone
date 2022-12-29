@@ -134,3 +134,14 @@ export function createUserAuthOptions(localToken){
   }
 }
 
+
+export function createStatisticsOptions(localToken){
+  return {
+    method: "GET",
+    url: `/api/stats`,
+    headers: {
+      "Content-type": "application/json", 
+      authorization: `Bearer ${localToken}`
+    }
+  }
+}

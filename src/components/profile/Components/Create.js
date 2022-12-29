@@ -42,7 +42,6 @@ const Create = () => {
     formData.append("nome", name)
     formData.append("peso", weigth)
     formData.append("idade", age)
-
     try {
       const configRequest = createPostPhotoOptions(formData, localToken)
       await axios(configRequest)
@@ -65,7 +64,7 @@ const Create = () => {
           <Input type="text" name="Nome" setInput={setName} value={name} required/>
           <Input type="number" name="Peso" setInput={setWeight} value={weigth} required/>
           <Input type="number" name="Idade" setInput={setAge} value={age} required/>
-          <input type="file" onChange={handleShowPicturePreview}/>
+          <input type="file" onChange={handleShowPicturePreview} required/>
           <button className='defaultBtn' 
             style={ isLoading ? {
               cursor: "wait",

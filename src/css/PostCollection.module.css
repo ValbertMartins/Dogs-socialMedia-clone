@@ -8,19 +8,17 @@
     min-height: 600px;
     
 }
-
 .post {
     border-radius: 5px;
     position: relative;
-    
-  
 }
+
 .post:nth-child(2){
     grid-column-start: 2;
     grid-column-end: 4;
     grid-row: span 2;
-
 }
+
 
 
 .post img {

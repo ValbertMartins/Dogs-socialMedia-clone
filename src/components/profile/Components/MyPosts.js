@@ -4,6 +4,7 @@ import Loading from '../../Loading'
 import { Auth } from '../../../context/Auth'
 import { createRequestPicturesOptions } from '../../../services/api/requestOptions'
 import axios from 'axios'
+import ImageSkeleton from '../../feed/ImageSkeleton'
 
 
 const MyPosts = ({setIdModal}) => {
@@ -53,7 +54,6 @@ const MyPosts = ({setIdModal}) => {
     console.log(id)
     setIdModal(id)
   }
-
   //infinite scroll
   React.useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
@@ -87,7 +87,7 @@ const MyPosts = ({setIdModal}) => {
                 return(
                   <div key={picture.id} className="animationLeft"
                     onClick={() => handlerOpenModal(picture.id)}>
-                    <img src={picture.src} alt={picture.name}/>
+                    <ImageSkeleton post={picture}/>
                   </div>
                 )
               })
