@@ -50,8 +50,6 @@ const MyPosts = ({setIdModal}) => {
   
 
   const handlerOpenModal = (id) => {
-    //setActiveModal(true)
-    console.log(id)
     setIdModal(id)
   }
   //infinite scroll
@@ -85,9 +83,14 @@ const MyPosts = ({setIdModal}) => {
             {
               myPictures?.map((picture) => {
                 return(
-                  <div key={picture.id} className="animationLeft"
+                  <div key={picture.id} className={`animationLeft ${styles.postContainer}`}
                     onClick={() => handlerOpenModal(picture.id)}>
                     <ImageSkeleton post={picture}/>
+                    <div className={styles.viewsContainer}>
+                    <p className={styles.views}>
+                      {picture.acessos}
+                    </p>
+                    </div>  
                   </div>
                 )
               })
